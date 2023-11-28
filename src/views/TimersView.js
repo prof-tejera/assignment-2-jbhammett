@@ -56,7 +56,6 @@ const TimersView = () => {
 
 
   const handleStartWorkoutButton = (value) => {
-    // isRunning = true;
 
     for (let i=0; i<timers.length; i++) {
       timers[i].isRunning = true;
@@ -87,24 +86,11 @@ const TimersView = () => {
         
   //   }
   };
-  // const timers = [
-  //   { title: "Stopwatch", C: <Stopwatch /> },
-  //   { title: "Countdown", C: <Countdown /> },
-  //   { title: "XY", C: <XY /> },
-  //   { title: "Tabata", C: <Tabata /> },
-  // ];
+
 
   return (
-    // <Timers>
-    //   {timers.map((timer) => (
-    //     <Timer key={`timer-${timer.title}`}>
-    //       <TimerTitle>{timer.title}</TimerTitle>
-    //       {timer.C}
-    //     </Timer>
-    //   ))}
-    // </Timers>
+
     <div>
-      {/* <Button value="Start Workout" color='#aaa0ff' onClick={handleStartButton} /> */}
       <Button value="Start Workout" color='#aaa0ff' onClick={handleStartWorkoutButton} />
       <h2>Total Workout Time </h2>
       <DisplayTime minutes="0" seconds={totalTime} />
