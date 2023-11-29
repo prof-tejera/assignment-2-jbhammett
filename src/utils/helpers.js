@@ -37,9 +37,9 @@ export const HandleStopButton = ((interval, start) => {
 });
 
 
-export const setTimes = (value, setDisplayMinutesCount, setDisplaySecondsCount, setStartMinutes, setStartSeconds) => {
-        setDisplayMinutesCount(value);
-        setDisplaySecondsCount(value);
+export const setTimes = (value, setStartMinutes, setStartSeconds) => {
+        // setDisplayMinutesCount(value);
+        // setDisplaySecondsCount(value);
         setStartMinutes(value);
         setStartSeconds(value);
 };    

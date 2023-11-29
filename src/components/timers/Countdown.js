@@ -5,49 +5,54 @@ import TimerInput from "../generic/TimerInput";
 import Button from "../generic/Button";
 import DisplayTime from "../generic/DisplayTime";
 import Panel from "../generic/Panel";
+
 import { CalculateTotalSeconds, HandleStopButton, setTimes, CalculateMinutesSeconds } from "../../utils/helpers";
 
 /** *
  * Change counter to state variable. Will need to change all of these from .current
  * Set isRunning useRef
 */
-const Countdown = ()=> {
+const Countdown = ({ startMinutes, startSeconds })=> {
 
-    const [startMinutes, setStartMinutes] = useState('00');
-    const [startSeconds, setStartSeconds] = useState('00');
-    const [counter, setCounter] = useState(0);
+    // const [startMinutes, setStartMinutes] = useState('00');
+    // const [startSeconds, setStartSeconds] = useState('00');
+    const [counter, setCounter] = useState(CalculateTotalSeconds(startMinutes, startSeconds));
     
     const totalSeconds = useRef(0);
     const secondsCountInterval = useRef(null);
     const isRunning = useRef(false);
 
-    const secondsOptions = [0, 15, 30, 45];
-    const minutesOptions = [];
-    for (let i=0; i < 60; i++){
-        minutesOptions.push(i);
-    }
+    // const secondsOptions = [0, 15, 30, 45];
+    // const minutesOptions = [];
+    // for (let i=0; i < 60; i++){
+    //     minutesOptions.push(i);
+    // }
 
-    const handleMinutesInput = v => {
-        setStartMinutes(v);
+    // const handleMinutesInput = v => {
+    //     setStartMinutes(v);
       
-        setCounter(() => {
-            return CalculateTotalSeconds(v, startSeconds);
-        });        
-    };
+        // setCounter(() => {
+        //     return CalculateTotalSeconds(v, startSeconds);
+        // });        
+    // };
 
-    const handleSecondsInput = v => {
-        setStartSeconds(v);
-        setCounter(() => {
-            return CalculateTotalSeconds(startMinutes, v);
-        });
-    };
+    // const handleSecondsInput = v => {
+    //     setStartSeconds(v);
+    //     setCounter(() => {
+    //         return CalculateTotalSeconds(startMinutes, v);
+    //     });
+    // };
+
+
 
     const handleStartButton = (value) => {
-        isRunning.current = true;
         
+        isRunning.current = true;
+ 
         let seconds = CalculateTotalSeconds(startMinutes, startSeconds);
     
         totalSeconds.current = seconds;
+        
     
         if (totalSeconds.current > 0){
 
@@ -72,7 +77,7 @@ const Countdown = ()=> {
 
       const handleResetButton = (value) => {
     
-        setTimes('00', setStartMinutes, setStartSeconds);
+        // setTimes('00', setStartMinutes, setStartSeconds);
         isRunning.current = false;
         setCounter(0);
         totalSeconds.current = 0;
@@ -99,15 +104,15 @@ const Countdown = ()=> {
                     marginBottom:0,
                 }}>Minutes : Seconds
                 </h6>
-                <TimerInput options={minutesOptions} value={startMinutes} timeType="Minutes" onChange={handleMinutesInput}/>:
-                <TimerInput options={secondsOptions} value={startSeconds} timeType="Seconds" onChange={handleSecondsInput}/>
-                {/* Added */}
+                {/* <TimerInput options={minutesOptions} value={startMinutes} timeType="Minutes" onChange={handleMinutesInput}/>: */}
+                {/* <TimerInput options={secondsOptions} value={startSeconds} timeType="Seconds" onChange={handleSecondsInput}/> */}
+
                 <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/>
-            
-                {/* ADDED */}
-                {!isRunning.current && (startMinutes !== '00' || startSeconds !== '00') && (counter === CalculateTotalSeconds(startMinutes, startSeconds)) && 
+                {/* <DisplayTime minutes={startMinutes} seconds={startSeconds}/> */}
+
+                {/* {!isRunning.current && (startMinutes !== '00' || startSeconds !== '00') && (counter === CalculateTotalSeconds(startMinutes, startSeconds)) &&  */}
                     <Button value={"Start"} color='#aaa0ff' onClick={handleStartButton} /> 
-                }
+                
                 {isRunning.current && (startMinutes !== CalculateMinutesSeconds(counter)[0] || startSeconds !== CalculateMinutesSeconds(counter.current[1])) &&  
                     <Button value={"Pause/Resume"} color='#aaa0ff' onClick={HandleStopButton} interval={secondsCountInterval} start={handleStartButton} /> 
                 }  

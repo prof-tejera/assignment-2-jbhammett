@@ -11,6 +11,8 @@ import Tabata from "../components/timers/Tabata";
 
 import { TimersContext } from "../utils/TimersProvider";
 
+import { CalculateTotalSeconds } from "../utils/helpers";
+
 
 
 const Editor = () => {
@@ -33,6 +35,12 @@ const Editor = () => {
     const handleSelectedTimerMinutes = (value) => {
         // selectedTimerMinutes.current = value;
         setStartMinutes(value);
+
+        // if (selectedTimer === 'Countdown') {
+        //     selectedTimer.setCounter(() => {
+        //         return CalculateTotalSeconds(startMinutes, startSeconds);
+        //     });    
+        // }
     }
     
     const handleSelectedTimerSeconds = (value) => {

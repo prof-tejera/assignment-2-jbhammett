@@ -39,7 +39,7 @@ const TimersView = () => {
       timersDisplay.push({title: "Stopwatch", C: <Stopwatch startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds}/>})
     }
     else if (timers[i].selectedTimer === 'Countdown'){
-      timersDisplay.push({title: "Countdown", C: <Countdown />})
+      timersDisplay.push({title: "Countdown", C: <Countdown startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} />})
     }
     else if (timers[i].selectedTimer === 'XY'){
       timersDisplay.push({title: "XY", C: <XY />})
@@ -60,6 +60,7 @@ const TimersView = () => {
     for (let i=0; i<timers.length; i++) {
       timers[i].isRunning = true;
       console.log(timers[i].isRunning);
+      timers[i].handleStartButton();
 
     }
 
