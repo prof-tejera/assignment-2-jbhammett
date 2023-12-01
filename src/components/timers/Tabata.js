@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 
 import TimerInput from "../generic/TimerInput";
 import Button from "../generic/Button";
@@ -8,70 +8,70 @@ import DisplayRounds from "../generic/DisplayRounds";
 import Panel from "../generic/Panel";
 import DisplayTitle from "../generic/DisplayTitle";
 import { CalculateTotalSeconds, HandleStopButton, setTimes, CalculateMinutesSeconds } from "../../utils/helpers";
+import { TimersContext } from "../../utils/TimersProvider";
 
-
-const Tabata = () => {
-
+const Tabata = ({ startMinutes, startSeconds, rounds, startRestMinutes, startRestSeconds }) => {
+    const { counter, setCounter } = useContext(TimersContext);
+    //************ */ NEED COUNTER FOR REST ALSO!!!!!!!!!!!!!!!!!!!!!**************
     const [displayRounds, setDisplayRounds] = useState(1);
     
-    
-    const [startMinutes, setStartMinutes] = useState('00');
-    const [startSeconds, setStartSeconds] = useState('00');
-    const [rounds, setRounds] = useState(0);
-    const [startRestMinutes, setStartRestMinutes] = useState('00');
-    const [startRestSeconds, setStartRestSeconds] = useState('00');
+    // const [startMinutes, setStartMinutes] = useState('00');
+    // const [startSeconds, setStartSeconds] = useState('00');
+    // const [rounds, setRounds] = useState(0);
+    // const [startRestMinutes, setStartRestMinutes] = useState('00');
+    // const [startRestSeconds, setStartRestSeconds] = useState('00');
 
     
     const totalSeconds = useRef(0);
     const totalRestSeconds = useRef(0);
     const secondsCountInterval = useRef(null);
     const work = useRef(true);
-    const [counter, setCounter] = useState(0);
-    const [restCounter, setRestCounter] = useState(0);
+    // const [counter, setCounter] = useState(CalculateTotalSeconds(startMinutes, startSeconds));
+    const [restCounter, setRestCounter] = useState(CalculateTotalSeconds(startRestMinutes, startRestSeconds));
     const isRunning = useRef(false);
 
-    const secondsOptions = [0, 15, 30, 45];
-    const minutesOptions = []
-        for (let i=0; i < 60; i++){
-            minutesOptions.push(i);
-        }
+//     const secondsOptions = [0, 15, 30, 45];
+//     const minutesOptions = []
+//         for (let i=0; i < 60; i++){
+//             minutesOptions.push(i);
+//         }
 
-    const roundsOptions = []
-    for (let j=0; j < 20; j++){
-        roundsOptions.push(j);
-}
+//     const roundsOptions = []
+//     for (let j=0; j < 20; j++){
+//         roundsOptions.push(j);
+// }
 
-    const handleMinutesInput = v => {
-        setStartMinutes(v);
-        setCounter(() => {
-            return CalculateTotalSeconds(v, startSeconds);
-        }); 
-    };
+    // const handleMinutesInput = v => {
+    //     setStartMinutes(v);
+    //     setCounter(() => {
+    //         return CalculateTotalSeconds(v, startSeconds);
+    //     }); 
+    // };
 
-    const handleSecondsInput = v => {
-        setStartSeconds(v);
-        setCounter(() => {
-            return CalculateTotalSeconds(startMinutes, v);
-        });
-    };
+    // const handleSecondsInput = v => {
+    //     setStartSeconds(v);
+    //     setCounter(() => {
+    //         return CalculateTotalSeconds(startMinutes, v);
+    //     });
+    // };
     
-    const handleRoundsInput = v => {
-        setRounds(v);
-    };
+    // const handleRoundsInput = v => {
+    //     setRounds(v);
+    // };
 
-    const handleRestMinutesInput = v => {
-        setStartRestMinutes(v);
-        setRestCounter(() => {
-            return CalculateTotalSeconds(v, startRestSeconds);
-        }); 
-    };
+    // const handleRestMinutesInput = v => {
+    //     setStartRestMinutes(v);
+    //     setRestCounter(() => {
+    //         return CalculateTotalSeconds(v, startRestSeconds);
+    //     }); 
+    // };
 
-    const handleRestSecondsInput = v => {
-        setStartRestSeconds(v);
-        setRestCounter(() => {
-            return CalculateTotalSeconds(startRestMinutes, v);
-        });
-    };
+    // const handleRestSecondsInput = v => {
+    //     setStartRestSeconds(v);
+    //     setRestCounter(() => {
+    //         return CalculateTotalSeconds(startRestMinutes, v);
+    //     });
+    // };
     
     
     const handleStartButton = (value) => {
@@ -164,8 +164,8 @@ const Tabata = () => {
     
     
       const handleResetButton = (value) => {
-        setTimes('00',setStartMinutes, setStartSeconds);
-        setTimes('00',setStartRestMinutes, setStartRestSeconds);
+        // setTimes('00',setStartMinutes, setStartSeconds);
+        // setTimes('00',setStartRestMinutes, setStartRestSeconds);
         isRunning.current = false;
 
         setCounter(0);
@@ -173,7 +173,7 @@ const Tabata = () => {
         setRestCounter(0)
         work.current = true;
 
-        setRounds(0);
+        // setRounds(0);
         setDisplayRounds(1);
         totalSeconds.current = 0;
         if (secondsCountInterval.current) {
@@ -198,12 +198,12 @@ const Tabata = () => {
     return (
         <div>
             <Panel type="Tabata">
-                <h6 style={{
+                {/* <h6 style={{
                     marginBottom:0,
-                }}>Minutes : Seconds
-                </h6>
-            <TimerInput options={minutesOptions} value={startMinutes} timeType="Minutes" onChange={handleMinutesInput}/>:
-            <TimerInput options={secondsOptions} value={startSeconds} timeType="Seconds" onChange={handleSecondsInput}/>
+                // }}>Minutes : Seconds
+                </h6> */}
+            {/* <TimerInput options={minutesOptions} value={startMinutes} timeType="Minutes" onChange={handleMinutesInput}/>: */}
+            {/* <TimerInput options={secondsOptions} value={startSeconds} timeType="Seconds" onChange={handleSecondsInput}/> */}
 
 
             <div>
@@ -213,14 +213,14 @@ const Tabata = () => {
                 }}>
                     Rest
                 </span>
-                <TimerInput options={minutesOptions} value={startRestMinutes} timeType="Minutes" onChange={handleRestMinutesInput}/>:
-                <TimerInput options={secondsOptions} value={startRestSeconds} timeType="Seconds" onChange={handleRestSecondsInput}/>
+                {/* <TimerInput options={minutesOptions} value={startRestMinutes} timeType="Minutes" onChange={handleRestMinutesInput}/>: */}
+                {/* <TimerInput options={secondsOptions} value={startRestSeconds} timeType="Seconds" onChange={handleRestSecondsInput}/> */}
             </div>    
 
-            <div>
+            {/* <div>
                 <DisplayTitle title="Rounds" />
                 <TimerInput options={roundsOptions} value={rounds} onChange={handleRoundsInput}/>
-            </div>
+            </div> */}
 
             <DisplayTitle title="Work" />
             <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/>

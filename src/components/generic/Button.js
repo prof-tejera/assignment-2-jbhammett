@@ -7,14 +7,14 @@ const Button = ({value, color, onClick, interval, start}) => {
        onClick={()=>onClick(interval, start)}   
         style={{
             padding: 5,
-            // width: 60,
+            width: 200,
             margin: 5,
             backgroundColor: color,
             fontSize: "1rem",
             textAlign: "center",
             borderRadius: "5px",
-            marginRight: "auto",
-            marginLeft: "auto",
+            // marginRight: "auto",
+            // marginLeft: "auto",
             fontWeight: "600",
             textTransform: "uppercase"
         }}>

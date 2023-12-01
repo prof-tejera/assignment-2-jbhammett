@@ -13,7 +13,7 @@ const TimerInput = ({options, value, timeType, onChange}) => {
 	return (
 
         
-        <span>
+        <span style={{ padding:2 }}>
             <select value={value} onChange={e => onChange(e.target.value)} >
                 {listOptions}
             </select>

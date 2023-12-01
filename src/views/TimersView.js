@@ -30,22 +30,22 @@ const Timer = styled.div`
 const TimerTitle = styled.div``;
 
 const TimersView = () => {
-  const { timers, deleteTimer } = useContext(TimersContext);
+  const { timers, deleteTimer, handleTimerStart, counter, setCounter } = useContext(TimersContext);
   let totalTime = 0;
   const timersDisplay = []
   for (let i=0; i<timers.length; i++){
     if (timers[i].selectedTimer === 'Stopwatch'){
       console.log(timers[i].startMinutes);
-      timersDisplay.push({title: "Stopwatch", C: <Stopwatch startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds}/>})
+      timersDisplay.push({title: "Stopwatch", C: <Stopwatch startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} isRunning={timers[i].isRunning} />})
     }
     else if (timers[i].selectedTimer === 'Countdown'){
-      timersDisplay.push({title: "Countdown", C: <Countdown startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} />})
+      timersDisplay.push({title: "Countdown", C: <Countdown startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} isRunning={timers[i].isRunning} />})
     }
     else if (timers[i].selectedTimer === 'XY'){
-      timersDisplay.push({title: "XY", C: <XY />})
+      timersDisplay.push({title: "XY", C: <XY startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} rounds={timers[i].rounds} isRunning={timers[i].isRunning} />})
     }
     else if (timers[i].selectedTimer === 'Tabata'){
-      timersDisplay.push({title: "Tabata", C: <Tabata />})
+      timersDisplay.push({title: "Tabata", C: <Tabata startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} rounds={timers[i].rounds} startRestMinutes={timers[i].startRestMinutes} startRestSeconds={timers[i].startRestSeconds} isRunning={timers[i].isRunning} />})
     }
 
     const currentTimerTime = CalculateTotalSeconds(timers[i].startMinutes, timers[i].startSeconds);
@@ -54,13 +54,17 @@ const TimersView = () => {
     
   }
 
+  
+
 
   const handleStartWorkoutButton = (value) => {
-
+    
     for (let i=0; i<timers.length; i++) {
-      timers[i].isRunning = true;
-      console.log(timers[i].isRunning);
-      timers[i].handleStartButton();
+      // timers[i].isRunning = true;
+      handleTimerStart(timers[i]);
+
+  
+     
 
     }
 

@@ -55,4 +55,13 @@ export const makeId = () => {
     return result;
   };
 
+// export const setTimerCounterStart = (timer, startMinutes, startSeconds) => {
+//     let timerCounterStart = 0;
+//     if (timer !== 'Stopwatch') {
+//         timerCounterStart = CalculateTotalSeconds(startMinutes, startSeconds);
+//     }
+//     console.log(`timerCounterStart ${timerCounterStart}`);
+//     return parseInt(timerCounterStart);
+// }
+
 
