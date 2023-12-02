@@ -106,15 +106,24 @@ const Countdown = ({ startMinutes, startSeconds, isRunning })=> {
         <div>
             <Panel type="Countdown">
       
-                <h6 style={{
+                {/* <h6 style={{
                     marginBottom:0,
                 }}>Minutes : Seconds
-                </h6>
+                </h6> */}
                 {/* <TimerInput options={minutesOptions} value={startMinutes} timeType="Minutes" onChange={handleMinutesInput}/>: */}
                 {/* <TimerInput options={secondsOptions} value={startSeconds} timeType="Seconds" onChange={handleSecondsInput}/> */}
 
-                {isRunning && <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/>}
-                {!isRunning  && <DisplayTime minutes={startMinutes} seconds={startSeconds}/>}
+                <div>
+                    <h5 style = {{
+                        textTransform: 'capitalize',
+                    }}
+                    
+                    >{isRunning}</h5>
+                </div>
+
+                {isRunning === 'running' && <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/>}
+                {isRunning === 'not running' && <DisplayTime minutes={startMinutes} seconds={startSeconds}/>}
+                {isRunning === 'completed' && <DisplayTime minutes="0" seconds="0" />}
                 {/* <DisplayTime minutes={startMinutes} seconds={startSeconds}/> */}
 
                 {/* {!isRunning.current && (startMinutes !== '00' || startSeconds !== '00') && (counter === CalculateTotalSeconds(startMinutes, startSeconds)) && 

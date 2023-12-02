@@ -140,13 +140,22 @@ const XY = ({ id, startMinutes, startSeconds, rounds, isRunning }) => {
                 </div> */}
 
                 {/* <DisplayRounds round={displayRounds} totalRounds={rounds} /> */}
-                {isRunning && <DisplayRounds round={currentTimerRounds} totalRounds={rounds} />}
-                {!isRunning && <DisplayRounds round="1" totalRounds={rounds} />}
+                <div>
+                    <h5 style = {{
+                        textTransform: 'capitalize',
+                    }}
+                    
+                    >{isRunning}</h5>
+                </div>
+                {isRunning === 'running' && <DisplayRounds round={currentTimerRounds} totalRounds={rounds} />}
+                {(isRunning ==='not running' || isRunning ==='completed') && <DisplayRounds round="1" totalRounds={rounds} />}
+                
                 
                 {/* {isRunning && <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/>} */}
                 {/* <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/> */}
-                {isRunning && <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/>}
-                {!isRunning && <DisplayTime minutes={startMinutes} seconds={startSeconds}/>}
+                {isRunning === 'running' && <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/>}
+                {isRunning ==='not running' && <DisplayTime minutes={startMinutes} seconds={startSeconds}/>}
+                {isRunning ==='completed' && <DisplayTime minutes="0" seconds="0" />}
     
 {/* 
                 {!isRunning.current && (startMinutes !== '00' || startSeconds !== '00') && (rounds > 0) && (counter === CalculateTotalSeconds(startMinutes, startSeconds)) && 

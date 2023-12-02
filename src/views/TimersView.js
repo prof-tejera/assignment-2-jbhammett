@@ -59,7 +59,7 @@ const TimersView = () => {
     
     for (let i=0; i<timers.length; i++) {
       // timers[i].isRunning = true;
-      handleTimerStart(timers[i]);
+      handleTimerStart(timers[0]);
 
   
      
@@ -101,8 +101,8 @@ const TimersView = () => {
 
       <Timers>
         {timersDisplay.map((timer) => (
-          <div >
-            <Timer key={timer.id}>
+          <div key={timer.id}>
+            <Timer >
               <TimerTitle>{timer.title}</TimerTitle>
               {timer.C}
             </Timer>

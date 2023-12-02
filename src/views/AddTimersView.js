@@ -174,7 +174,7 @@ const Editor = () => {
                                 selectedTimer,
                                 startMinutes,
                                 startSeconds,
-                                isRunning: false,
+                                isRunning: 'not running',
                                 rounds,
                                 startRestMinutes,
                                 startRestSeconds,
