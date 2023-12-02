@@ -16,7 +16,7 @@ import { CalculateTotalSeconds, setTimerCounterStart } from "../utils/helpers";
 
 
 const Editor = () => {
-    const { saveTimer, closeEditor, secondsOptions, minutesOptions, roundsOptions } = useContext(TimersContext);
+    const { saveTimer, closeEditor, deleteTimer, secondsOptions, minutesOptions, roundsOptions } = useContext(TimersContext);
     const [selectedTimer, setSelectedTimer ] = useState(null);
     const [startMinutes, setStartMinutes] = useState(selectedTimer?.startMinutes ?? '');
     const [startSeconds, setStartSeconds] = useState(selectedTimer?.startSeconds ?? '');
