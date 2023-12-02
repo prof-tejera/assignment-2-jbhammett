@@ -131,8 +131,7 @@ const TimersProvider = ({ children }) => {
                             // Start timer
                                 secondsCountInterval.current = setInterval(() => {
                                     let nextTotalSecondsCounter = 0;
-                                    console.log(`counter ${counter}`);
-                                    // let prevTotalSecondsCount = totalSeconds.current;
+                                    
                                     // setCounter((prevTotalSecondsCount) => {
                                     setCounter((prevTotalSecondsCount) => {
                                         console.log(`prevTotalSecondsCount ${prevTotalSecondsCount}`)
@@ -147,48 +146,7 @@ const TimersProvider = ({ children }) => {
                                         else {
                                             console.log("no");
                                         }
-                                        // if (prevTotalSecondsCount === 0 && displayRounds < rounds){
-
-                                        // BEGIN REMOVED CODE TO SEPARATE STATE FUNCTIONS
-                                        // if (prevTotalSecondsCount === 0 && currentTimerRounds < timer.rounds){
-                                        
-                                        // // if (nextTotalSecondsCounter === 0 && currentTimerRounds < timer.rounds){
-                                        //     console.log(`currentTimerRounds ${currentTimerRounds}`);
-                                        //     console.log(`timer.rounds ${timer.rounds}`);
-                                        //     setCurrentTimerRounds((prevRound) =>{
-    
-                                        //         console.log("setCurrentTimeRounds");
-                                        //         console.log(`prevRound ${prevRound}`);
-                                        //         const nextRound = prevRound + 1;
-                                        
-                                        //         // Stop timer when end time is reached on last round
-                                        //         if (nextRound > timer.rounds){
-                                        //             console.log(`nextRound ${nextRound}`);
-                                        //             console.log(`timer.rounds ${timer.rounds}`);
-                                        //             nextTotalSecondsCounter = 0;
-                                                    
-                                        //             clearInterval(secondsCountInterval.current);
-                                        //             console.log("setting isRunning to false");
-                                        //             timer.isRunning = false;
-                                        //             return prevRound;
-                                        //         }
-                                        //         // Otherwise, start next round
-                                        //         else {
-                                        //             console.log("Start next round");
-                                        //             nextTotalSecondsCounter = totalSeconds.current;
-                                        //             console.log(`nextTotalSecondsCounter ${nextTotalSecondsCounter}`);
-                                        //             // setCounter(() => {
-                    
-                                        //             //     return CalculateTotalSeconds(timer.startMinutes, timer.startSeconds);
-                                        //             // });
-                                        //             setCounter(totalSeconds.current);
-                                        //             // prevTotalSecondsCount = totalSeconds.current;
-                                        //             console.log(`nextRound ${nextRound}`);
-                                        //             return nextRound;
-                                        //         }
-                                        //     });
-                                        // }
-                                        // END REMOVED CODE
+                                       
                             
                                         // if (nextTotalSecondsCounter === 0 ) {
                                         //     clearInterval(secondsCountInterval.current);
@@ -242,9 +200,9 @@ const TimersProvider = ({ children }) => {
                                             //The line below ends setCurrentTimerRounds    
                                             });
 
-                                    //     //     if (nexttotalSecondsCounter === totalSeconds.current){
-                                    //     //         setCounter(totalSeconds.current);
-                                    //     //     }
+                                            // if (nextTotalSecondsCounter === totalSeconds.current){
+                                            //     setCounter(totalSeconds.current);
+                                            // }
                                         }
 
 
@@ -253,89 +211,7 @@ const TimersProvider = ({ children }) => {
                                 
                             }
                         
-                    }
-
-
-
-        //             let restSeconds = CalculateTotalSeconds(startRestMinutes, startRestSeconds);
-        // totalRestSeconds.current = restSeconds;
-
-
-        // if (totalSeconds.current > 0 && rounds > 0){
-      
-        // // Start timer
-        //     secondsCountInterval.current = setInterval(() => {
-        //         let nextTotalSecondsCounter = 0;
-        //         let nextRestSecondsCounter = 0;
-        //         // Work timer
-        //         if (work.current){
-  
-        //                 // If seconds counter is not at 0, subtract 1
-        //             setCounter((prevTotalSecondsCount) => {
-        //                 if (prevTotalSecondsCount > 0) {
-        //                     nextTotalSecondsCounter = prevTotalSecondsCount - 1;
-        //                 }
-        
-
-        //                 // Stop work timer so rest timer can start
-        //                 if (prevTotalSecondsCount === 0){
-        //                     work.current = false;
-        
-        //                 }
-                        
-        //                 return nextTotalSecondsCounter;
-
-        //             });
-        //         }
-
-        //         else {
-        //             setRestCounter((prevTotalRestSecondsCount) => {
-
-        //                 if (prevTotalRestSecondsCount > 0) {
-        //                     nextRestSecondsCounter = prevTotalRestSecondsCount - 1;
-        //                 }
-
-        //                 if(prevTotalRestSecondsCount === 0 && displayRounds < rounds){
-        //                     setDisplayRounds((prevRound) =>{
-        //                         const nextRound = prevRound + 1;
-                                
-
-        //                         // Stop timer if end time is reached on last round
-        //                         if (nextRound > rounds){
-        //                             nextTotalSecondsCounter = 0;
-        //                             nextRestSecondsCounter = 0;
-                                
-        //                             isRunning.current = false;
-        //                             clearInterval(secondsCountInterval.current);
-                                    
-        //                             return prevRound;
-        //                         }
-        //                         else {
-        //                            setCounter(() => {
-        //                                 return CalculateTotalSeconds(startMinutes, startSeconds);
-        //                             });
-        //                             setRestCounter(() => {
-        //                                 return CalculateTotalSeconds(startRestMinutes, startRestSeconds);
-        //                             });
-        //                            nextTotalSecondsCounter = totalSeconds.current;
-        //                             nextRestSecondsCounter = totalRestSeconds.current;
-            
-        //                             work.current = true;
-
-        //                             return nextRound;
-        //                         }
-                        
-        //                     });   
-        //                 }
-                    
-        //             return nextRestSecondsCounter;
-
-        //         });
-        //     }
-        //     }, 1000);
-            
-        // }
-                    
+                    }             
 
 
                 },
