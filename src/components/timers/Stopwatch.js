@@ -1,14 +1,28 @@
 import React from "react";
-import {  useContext } from 'react';
+import {  useContext, useRef, useState, useEffect } from 'react';
 
 import DisplayTime from "../generic/DisplayTime";
 import Panel from "../generic/Panel";
-import { CalculateMinutesSeconds } from "../../utils/helpers";
+import { CalculateMinutesSeconds, CalculateTotalSeconds } from "../../utils/helpers";
 import { TimersContext } from "../../utils/TimersProvider";
 
 
 const Stopwatch = ({id, startMinutes, startSeconds, isRunning }) =>  {
-    const { counter } = useContext(TimersContext);
+    // const { timers, counter, handleTimerStart, currentTimerCheck, currentTimer, setCurrentTimer } = useContext(TimersContext);
+    const { timers, handleTimerStart, currentTimerCheck, currentTimer, setCurrentTimer, start } = useContext(TimersContext);
+    const [counter, setCounter] = useState(0);
+    const secondsCountInterval = useRef(0);
+    
+    // console.log(`current timer ${currentTimerCheck.current}`);
+    // console.log(id);
+    // const current = currentTimerCheck.current;
+    // const currentId = current.id;
+    // console.log(`currentId ${currentId}`);
+
+    // if (id === currentTimer.id){
+    //     const timer = timers.find((t) => t.id = id);
+    //     handleStartTimer(timer);
+    // }
 
     // startMinutes = parseInt(startMinutes);
     // startSeconds = parseInt(startSeconds);
@@ -17,7 +31,7 @@ const Stopwatch = ({id, startMinutes, startSeconds, isRunning }) =>  {
     // const [startSeconds, setStartSeconds] = useState('00');
     // const [counter, setCounter] = useState(0);
     
-    // const totalSeconds = useRef(0);
+    const totalSeconds = useRef(0);
     // const secondsCountInterval = useRef(null);
     
     // const isRunning = useRef(false);
@@ -38,35 +52,85 @@ const Stopwatch = ({id, startMinutes, startSeconds, isRunning }) =>  {
     //     setStartSeconds(value);
     //     setCounter(0);
     // };
+    const timer = timers.find((t) => t.id = id);
+    const nextTimer = timers[timers.indexOf(timer) + 1];
+    console.log(`timer index ${timers.indexOf(timer)}`);
+    console.log(`nextTimer index ${timers.indexOf(timer) + 1}`);
+    console.log(`current id ${timer.id}`);
+    for (let i = 0; i < timers.length; i++ ){
+        console.log(`id ${timers[i].id}`);
+    }
 
-    
-
-    // const handleStartButton = (value) => {
-    //     isRunning.current = true;
+    // const handleStartButton = () => {
+   
+    if (start && timer === currentTimer && timers.indexOf(nextTimer)<timers.length) {
+        isRunning = 'running';
+        console.log('running');
   
-    //     let seconds = CalculateTotalSeconds(startMinutes, startSeconds);
+        let seconds = CalculateTotalSeconds(startMinutes, startSeconds);
     
-    //     totalSeconds.current = seconds;
+        totalSeconds.current = seconds;
+        console.log(`totalSeconds.current ${totalSeconds.current}`);
         
-    //     if (totalSeconds.current > 0){
-    //     // Start timer
-    //         secondsCountInterval.current = setInterval(() => {
-    //                 setCounter((prevTotalSecondsCount) => {
-    //                 const nextTotalSecondsCounter = prevTotalSecondsCount + 1;
-                
-    //                 // Stop timer when end time is reached
-    //                 if (nextTotalSecondsCounter === totalSeconds.current) {
-    //                     clearInterval(secondsCountInterval.current);
-               
-    //                     isRunning.current = false;
-    //                 }                   
-    //                 return nextTotalSecondsCounter;
-    //             });
-                
-    //         }, 1000);
+        if (totalSeconds.current > 0){
+        // Start timer
+            secondsCountInterval.current = setInterval(() => {
+                setCounter((prevTotalSecondsCount) => {
+                const nextTotalSecondsCounter = prevTotalSecondsCount + 1;
             
-    //     }
+                // Stop timer when end time is reached
+                if (nextTotalSecondsCounter === totalSeconds.current) {
+                    clearInterval(secondsCountInterval.current);
+            
+                    isRunning = 'completed';
+                    
+                    // if (prevTotalSecondsCount === 0){
+                    console.log(`timers ${timers}`);
+                    console.log(`nextTimer ${nextTimer.id}`);
+                    setCurrentTimer(nextTimer);
+                    console.log(`nextTimer after ${nextTimer.id}`);
+                    currentTimerCheck.current = nextTimer;
+                    // }
+                }                   
+                return nextTotalSecondsCounter;
+            });
+                
+            }, 1000);
+            
+        }
+    }
+
     //   };
+
+  
+        // console.log(`currentTimer ${currentTimer}`);
+        // console.log(`check ${currentTimerCheck.current}`);
+        // // const timer = timers.find((t) => t.id = id);
+        // console.log(`timer ${timer.id}`);
+        // // const nextTimer = timers[timers.indexOf(timer) + 1];
+        // console.log(`timer ${timer}`);
+        // // if (currentTimerCheck.current === timer ){
+        // // const current = currentTimer;
+        // // if (currentTimer === timer){
+        // const count = counter;
+        // const current = currentTimer;
+        // console.log(`count ${count}`);
+        // console.log(`current ${current}`);
+        // if (currentTimer === timer && counter < totalSeconds.current){
+        //     console.log("current timer === timer");
+        //     // handleTimerStart(timer);
+        //     handleStartButton();
+        //     // if (isRunning === 'completed'){
+        //     //     setCurrentTimer(timers[timerIndex + 1]);
+        //     // }
+        
+        // }
+        // else{
+        //     console.log("don't match");
+        // }
+ 
+    
+
 
 
     //   const handleResetButton = (value) => {

@@ -60,10 +60,20 @@ const TimersView = () => {
     // for (let i=0; i<timers.length; i++) {
       // timers[i].isRunning = true;
       // setCurrentTimer(timers[i]);
-      handleTimerStart(timers[0]);
+      // if (timers[i].isRunning === 'completed'){
+        
+      
+      handleTimerStart(timers[0]); //This is what i usually use.
+      // if (!value){
+      //   setCurrentTimer(timers[0]);
+      // }
+      // else {
+      //   setCurrentTimer(value);
+      // }
       // if (currentTimerCheck.current.isRunning === 'completed')
-
-  
+      // }  
+      
+      
      
 
     // }
