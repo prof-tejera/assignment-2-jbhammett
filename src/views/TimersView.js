@@ -30,7 +30,7 @@ const Timer = styled.div`
 const TimerTitle = styled.div``;
 
 const TimersView = () => {
-  const { timers, deleteTimer, handleTimerStart, counter, setCounter } = useContext(TimersContext);
+  const { timers, deleteTimer, handleTimerStart, counter, setCounter, currentTimer, setCurrentTimer, currentTimerCheck } = useContext(TimersContext);
   let totalTime = 0;
   const timersDisplay = []
   for (let i=0; i<timers.length; i++){
@@ -57,14 +57,16 @@ const TimersView = () => {
 
   const handleStartWorkoutButton = (value) => {
     
-    for (let i=0; i<timers.length; i++) {
+    // for (let i=0; i<timers.length; i++) {
       // timers[i].isRunning = true;
+      // setCurrentTimer(timers[i]);
       handleTimerStart(timers[0]);
+      // if (currentTimerCheck.current.isRunning === 'completed')
 
   
      
 
-    }
+    // }
 
     // let seconds = CalculateTotalSeconds(startMinutes, startSeconds);
 

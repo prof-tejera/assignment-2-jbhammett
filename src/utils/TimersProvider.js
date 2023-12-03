@@ -78,12 +78,20 @@ const TimersProvider = ({ children }) => {
                         else {
                             timer.isRunning = 'not running';
                         }
+
+                        let runningTimer = null;
+                        if (currentTimerCheck.current === timers[0]){
+                            runningTimer = timers[0];
+                        }
+                        else {
+                            runningTimer = nextTimer;
+                        }
                         let seconds = CalculateTotalSeconds(timer.startMinutes, timer.startSeconds);
                         totalSeconds.current = seconds;
                         // clearInterval(secondsCountInterval.current);
                         // if (currentTimerCheck.current === timer){
-                        if (currentTimerCheck.current === nextTimer){
-                            
+                        // if (currentTimerCheck.current === timers[0] || currentTimerCheck.current === nextTimer){
+                            if (currentTimerCheck.current = runningTimer){
                             if (timer.selectedTimer === 'Stopwatch') {
                                 
                                 if (totalSeconds.current > 0){
