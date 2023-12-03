@@ -14,7 +14,7 @@ const TimersProvider = ({ children }) => {
     const totalSeconds = useRef(0);
     const totalRestSeconds = useRef(0);
     const secondsCountInterval = useRef(null);
-    const counterCheck = useRef(0);
+    const counterCheck = useRef(null);
     const roundsCheck = useRef(1);
     const currentTimerCheck = useRef(null);
 
@@ -66,12 +66,13 @@ const TimersProvider = ({ children }) => {
                 handleTimerStart: (timer) => {
                     // for (let i=0; i<timers.length; i++){
                         
-                        setCurrentTimer(timer.id);
-                        currentTimerCheck.current = timer.id;
-                        let nextTimer = timers[timers.indexOf(timer) + 1].id;
+                        setCurrentTimer(timer);
+                        currentTimerCheck.current = timer;
+                        let nextTimer = timers[timers.indexOf(timer) + 1];
+                        console.log(`inital nextTimer ${nextTimer.selectedTimer}`);
                         
                         console.log(`currentTimerCheck.current ${currentTimerCheck.current}`);
-                        if (currentTimerCheck.current === timer.id) {
+                        if (currentTimerCheck.current === timer) {
                             timer.isRunning = 'running';
                         }
                         else {
@@ -80,15 +81,19 @@ const TimersProvider = ({ children }) => {
                         let seconds = CalculateTotalSeconds(timer.startMinutes, timer.startSeconds);
                         totalSeconds.current = seconds;
                         // clearInterval(secondsCountInterval.current);
-                        if (currentTimerCheck.current === timer.id){
+                        // if (currentTimerCheck.current === timer){
+                        if (currentTimerCheck.current === currentTimerCheck.current){
+                            
                             if (timer.selectedTimer === 'Stopwatch') {
                                 
                                 if (totalSeconds.current > 0){
                                     // Start timer
                                         secondsCountInterval.current = setInterval(() => {
+                                            console.log(`timer ${timer.selectedTimer}`);
+                                            console.log(`currentTimerCheck.current ${currentTimerCheck.current.selectedTimer}`)
                                             setCounter((prevTotalSecondsCount) => {
                                         
-                                                const nextTotalSecondsCounter = prevTotalSecondsCount+ 1;
+                                                const nextTotalSecondsCounter = prevTotalSecondsCount + 1;
                                             
                                                 // Stop timer when end time is reached
                                                 if (nextTotalSecondsCounter === totalSeconds.current) {
@@ -96,11 +101,18 @@ const TimersProvider = ({ children }) => {
                                         
                                                     timer.isRunning = 'completed';
                                                     if (timer.isRunning === 'completed' && timers.indexOf(timer) < timers.length){    
-                                                        console.log('next');       
+                                                        console.log('completed');     
                                                         console.log(timers[timers.indexOf(timer) + 1]);
                                                      
                                                      setCurrentTimer(nextTimer);
-                                                     currentTimerCheck.current = nextTimer;   
+                                                     console.log(`nextTimer ${nextTimer.selectedTimer}`);
+                                                     console.log(`index current timer ${timers.indexOf(timer)}`);
+                                                     console.log(`index next timer ${timers.indexOf(timer) + 1}`);
+                                                     
+
+                                                     
+
+                                                     currentTimerCheck.current = timers[timers.indexOf(timer) + 1];   
                                                     }
                                                 }                   
                                                 return nextTotalSecondsCounter;
