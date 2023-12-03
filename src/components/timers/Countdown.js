@@ -1,13 +1,11 @@
 import React from "react";
-import { useState, useRef, useContext } from 'react';
+import { useContext } from 'react';
 
-import TimerInput from "../generic/TimerInput";
-import Button from "../generic/Button";
 import DisplayTime from "../generic/DisplayTime";
 import Panel from "../generic/Panel";
 import { TimersContext } from "../../utils/TimersProvider";
 
-import { makeId, CalculateTotalSeconds, HandleStopButton, setTimes, CalculateMinutesSeconds } from "../../utils/helpers";
+import { CalculateMinutesSeconds } from "../../utils/helpers";
 
 /** *
  * Change counter to state variable. Will need to change all of these from .current

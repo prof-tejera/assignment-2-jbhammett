@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef, useContext } from 'react';
+import { useContext } from 'react';
 
 import DisplayTime from "../generic/DisplayTime";
 import DisplayRounds from "../generic/DisplayRounds";

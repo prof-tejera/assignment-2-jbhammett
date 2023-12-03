@@ -82,7 +82,7 @@ const TimersProvider = ({ children }) => {
                         totalSeconds.current = seconds;
                         // clearInterval(secondsCountInterval.current);
                         // if (currentTimerCheck.current === timer){
-                        if (currentTimerCheck.current === currentTimerCheck.current){
+                        if (currentTimerCheck.current === nextTimer){
                             
                             if (timer.selectedTimer === 'Stopwatch') {
                                 

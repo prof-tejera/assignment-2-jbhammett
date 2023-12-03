@@ -1,17 +1,14 @@
 import React from "react";
-import { useContext, useRef, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import Button from "../components/generic/Button";
 import TimerInput from "../components/generic/TimerInput";
 
-import Stopwatch from "../components/timers/Stopwatch";
-import Countdown from "../components/timers/Countdown";
-import XY from "../components/timers/XY";
-import Tabata from "../components/timers/Tabata";
+
 
 import { TimersContext } from "../utils/TimersProvider";
 
-import { CalculateTotalSeconds, setTimerCounterStart } from "../utils/helpers";
+// import { CalculateTotalSeconds, setTimerCounterStart } from "../utils/helpers";
 
 
 

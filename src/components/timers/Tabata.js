@@ -1,13 +1,11 @@
 import React from "react";
-import { useState, useRef, useContext } from 'react';
+import { useContext } from 'react';
 
-import TimerInput from "../generic/TimerInput";
-import Button from "../generic/Button";
 import DisplayTime from "../generic/DisplayTime";
 import DisplayRounds from "../generic/DisplayRounds";
 import Panel from "../generic/Panel";
 import DisplayTitle from "../generic/DisplayTitle";
-import { CalculateTotalSeconds, HandleStopButton, setTimes, CalculateMinutesSeconds } from "../../utils/helpers";
+import { CalculateMinutesSeconds } from "../../utils/helpers";
 import { TimersContext } from "../../utils/TimersProvider";
 
 const Tabata = ({ id, startMinutes, startSeconds, rounds, startRestMinutes, startRestSeconds, isRunning }) => {
