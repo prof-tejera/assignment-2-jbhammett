@@ -7,19 +7,19 @@ const TimersProvider = ({ children }) => {
     const [timers, setTimers] = useState([]);
     const [selectedTimer, setSelectedTimer] = useState(null);
     const [currentTimer, setCurrentTimer] = useState(timers[0]);
-    // const [currentTimer, setCurrentTimer] = useState(timers[0]);
+    
     const [counter, setCounter] = useState(0);
     const [restCounter, setRestCounter] = useState(0);
     const [currentTimerRounds, setCurrentTimerRounds] = useState(1);
-    const [start, setStart] = useState(false);
+    // const [start, setStart] = useState(false);
   
     const totalSeconds = useRef(0);
     const totalRestSeconds = useRef(0);
-    // const secondsCountInterval = useRef(null);
+    const secondsCountInterval = useRef(0);
     const counterCheck = useRef(null);
     const roundsCheck = useRef(1);
     const currentTimerCheck = useRef(timers[0]);
-
+    
     const work = useRef(true);
 
     const closeEditor = () => {
@@ -51,10 +51,10 @@ const TimersProvider = ({ children }) => {
                 minutesOptions,
                 roundsOptions,
                 totalSeconds,
-                // counter,
+                counter,
                 restCounter,
                 currentTimerRounds,
-                start,
+                // start,
              
                 closeEditor,
                 deleteTimer: ({ id }) => setTimers(timers.filter(x => x.id !== id)),
@@ -69,27 +69,33 @@ const TimersProvider = ({ children }) => {
 
 
                 handleTimerStart: (timer) => {
-                    setStart(true);
-                    if (!timers[timers.indexOf(currentTimerCheck.current) + 1]){
-                        setStart(false);
-                    }
+                    // setStart(true);
+                    
                     // setCurrentTimer(timers[0]);
+                    if (timers.indexOf(currentTimerCheck.current < timers.length)){
 
-                        //All above stopwatch check was not commented
-                        // console.log(`timers.length ${timers.length}`);
-              
-                        // setCurrentTimer(timer);
-                        // currentTimerCheck.current = timer;
-                        // let nextTimer = timers[timers.indexOf(timer) + 1];
+                        let nextTimer = timers[timers.indexOf(timer) + 1];
+                        console.log(`timers.length ${timers.length}`);
+                        
+                        if (timers.indexOf(currentTimerCheck.current === 0)){
+                            setCurrentTimer(timer);
+                        }
+                        else {
+                            setCurrentTimer(nextTimer)
+                        }
+                        
+                        console.log(`timer ${timer}`);
+                        currentTimerCheck.current = timer;
+                        
                         // console.log(`inital nextTimer ${nextTimer.selectedTimer}`);
                         
-                        // console.log(`currentTimerCheck.current ${currentTimerCheck.current}`);
-                        // if (currentTimerCheck.current === timer) {
-                        //     timer.isRunning = 'running';
-                        // }
-                        // else {
-                        //     timer.isRunning = 'not running';
-                        // }
+                        console.log(`currentTimerCheck.current ${currentTimerCheck.current}`);
+                        if (currentTimerCheck.current === timer) {
+                            timer.isRunning = 'running';
+                        }
+                        else {
+                            timer.isRunning = 'not running';
+                        }
                         
                         // let runningTimer = null;
                         // if (currentTimerCheck.current === timers[0]){
@@ -98,54 +104,56 @@ const TimersProvider = ({ children }) => {
                         // else {
                         //     runningTimer = nextTimer;
                         // }
-                        // let seconds = CalculateTotalSeconds(timer.startMinutes, timer.startSeconds);
+                        console.log(timer.startMinutes);
+                        console.log(`timer.startSeconds ${timer.startSeconds}`);
+                        let seconds = CalculateTotalSeconds(timer.startMinutes, timer.startSeconds);
 
 
-                        // totalSeconds.current = seconds;
+                        totalSeconds.current = seconds;
 
 
                             // if (currentTimerCheck.current = runningTimer){
                             if (timer.selectedTimer === 'Stopwatch') {
                                 console.log("stopwatch");
-                                // if (totalSeconds.current > 0){
-                                //     // Start timer
-                                //         secondsCountInterval.current = setInterval(() => {
-                                //             console.log(`timer ${timer.selectedTimer}`);
-                                //             console.log(`currentTimerCheck.current ${currentTimerCheck.current.selectedTimer}`)
-                                //             setCounter((prevTotalSecondsCount) => {
+                                if (totalSeconds.current > 0){
+                                    // Start timer
+                                        secondsCountInterval.current = setInterval(() => {
+                                            console.log(`timer ${timer.selectedTimer}`);
+                                            // console.log(`currentTimerCheck.current ${currentTimerCheck.current.selectedTimer}`)
+                                            setCounter((prevTotalSecondsCount) => {
                                         
-                                //                 const nextTotalSecondsCounter = prevTotalSecondsCount + 1;
+                                                const nextTotalSecondsCounter = prevTotalSecondsCount + 1;
                                             
-                                //                 // Stop timer when end time is reached
-                                //                 if (nextTotalSecondsCounter === totalSeconds.current) {
-                                //                     clearInterval(secondsCountInterval.current);
+                                                // Stop timer when end time is reached
+                                                if (nextTotalSecondsCounter === totalSeconds.current) {
+                                                    clearInterval(secondsCountInterval.current);
                                         
-                                //                     timer.isRunning = 'completed';
-                                //                     if (timer.isRunning === 'completed' && timers.indexOf(timer) < timers.length){    
-                                //                         console.log('completed');     
-                                //                         console.log(timers[timers.indexOf(timer) + 1]);
+                                                    timer.isRunning = 'completed';
+                                                    if (timer.isRunning === 'completed' && timers.indexOf(timer) < timers.length){    
+                                                        console.log('completed');     
+                                                        console.log(timers[timers.indexOf(timer) + 1]);
                                                      
-                                //                      setCurrentTimer(nextTimer);
-                                //                     //  if(nextTimer){
-                                //                     //     this.startNextTimer(nextTimer);
-                                //                     //  }
+                                                     setCurrentTimer(nextTimer);
+                                                    //  if(nextTimer){
+                                                    //     this.startNextTimer(nextTimer);
+                                                    //  }
                                                      
                                                      
-                                //                      console.log(`nextTimer ${nextTimer.selectedTimer}`);
-                                //                      console.log(`index current timer ${timers.indexOf(timer)}`);
-                                //                      console.log(`index next timer ${timers.indexOf(timer) + 1}`);
+                                                    //  console.log(`nextTimer ${nextTimer.selectedTimer}`);
+                                                     console.log(`index current timer ${timers.indexOf(timer)}`);
+                                                     console.log(`index next timer ${timers.indexOf(timer) + 1}`);
                                                      
 
-                                //                      currentTimerCheck.current = timers[timers.indexOf(timer) + 1];   
-                                //                     }
-                                //                 }                   
-                                //                 return nextTotalSecondsCounter;
+                                                     currentTimerCheck.current = timers[timers.indexOf(timer) + 1];   
+                                                    }
+                                                }                   
+                                                return nextTotalSecondsCounter;
                                                 
-                                //             });
+                                            });
 
-                                //         }, 1000);
+                                        }, 1000);
                                         
-                                //     }
+                                    }
                             }
 
                             // else if (timer.selectedTimer === 'Countdown') {
@@ -338,7 +346,11 @@ const TimersProvider = ({ children }) => {
                         // , [currentTimerCheck.current]); 
                          
                         // }// useEffect
+                        // if (!timers[timers.indexOf(currentTimerCheck.current) + 1]){
+                        //     setStart(false);
+                        // }
                     // } if currentTimer
+                    }
                 },
 
                 saveTimer: ({ id, selectedTimer, startMinutes, startSeconds, rounds, startRestMinutes, startRestSeconds, isRunning }) => {
