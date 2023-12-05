@@ -30,9 +30,6 @@ const Stopwatch = ({id, index, startMinutes, startSeconds, isRunning }) =>  {
 
     useEffect(() => {
         if (index === currentIndex) {
-            
-            
-            console.log(`isRunning ${isRunning}`);
             secondsCountInterval.current = setInterval(() => {
             setCounter(prev => {
               return prev + 1;

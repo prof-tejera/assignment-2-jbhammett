@@ -1,18 +1,56 @@
 import React from "react";
-import { useContext } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 
 import DisplayTime from "../generic/DisplayTime";
 import Panel from "../generic/Panel";
 import { TimersContext } from "../../utils/TimersProvider";
 
-import { CalculateMinutesSeconds } from "../../utils/helpers";
+import { CalculateMinutesSeconds, CalculateTotalSeconds } from "../../utils/helpers";
 
 /** *
  * Change counter to state variable. Will need to change all of these from .current
  * Set isRunning useRef
 */
-const Countdown = ({ startMinutes, startSeconds, isRunning })=> {
-    const { counter } = useContext(TimersContext);
+const Countdown = ({ id, index, startMinutes, startSeconds, isRunning })=> {
+    const { timers, currentIndex, setCurrentIndex } = useContext(TimersContext);
+    const duration = CalculateTotalSeconds(startMinutes, startSeconds);
+    const [counter, setCounter] = useState(duration);
+    const secondsCountInterval = useRef(0);
+    const totalSeconds = useRef(duration);
+
+    if (index === currentIndex){
+        isRunning = 'running';
+    }
+    else if (index < currentIndex){
+        isRunning = 'completed';
+    }
+    else {
+        isRunning = 'not running';
+    }
+
+    useEffect(() => {
+        if (index === currentIndex) {
+            secondsCountInterval.current = setInterval(() => {
+            setCounter(prev => {
+              return prev - 1;
+            });
+          }, 1000);
+        }
+    
+        return () => {
+          clearInterval(secondsCountInterval.current);
+        };
+      }, [currentIndex]);
+    
+      useEffect(() => {
+        if (counter === 0) {
+          // I'm done!
+          console.log("done");
+          clearInterval(secondsCountInterval.current);
+          setCurrentIndex(c => c + 1);
+          isRunning = 'completed';
+        }
+      }, [counter]);
     // const [startMinutes, setStartMinutes] = useState('00');
     // const [startSeconds, setStartSeconds] = useState('00');
     // const [countdownCounter, setCountdownCounter] = useState(CalculateTotalSeconds(startMinutes, startSeconds));
