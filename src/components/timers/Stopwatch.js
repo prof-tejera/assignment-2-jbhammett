@@ -7,11 +7,53 @@ import { CalculateMinutesSeconds, CalculateTotalSeconds } from "../../utils/help
 import { TimersContext } from "../../utils/TimersProvider";
 
 
-const Stopwatch = ({id, startMinutes, startSeconds, isRunning }) =>  {
-    const { timers, counter, handleTimerStart, currentTimerCheck, currentTimer, setCurrentTimer } = useContext(TimersContext);
-    // const { timers, handleTimerStart, currentTimerCheck, currentTimer, setCurrentTimer, start } = useContext(TimersContext);
-    // const [counter, setCounter] = useState(0);
-    // const secondsCountInterval = useRef(0);
+const Stopwatch = ({id, index, startMinutes, startSeconds, isRunning }) =>  {
+    // with counter const { timers, counter, handleTimerStart, currentTimerCheck, currentTimer, setCurrentTimer } = useContext(TimersContext);
+    const { timers, currentIndex, setCurrentIndex, handleTimerStart, currentTimerCheck, currentTimer, setCurrentTimer } = useContext(TimersContext);
+    // first attempt without counter const { timers, handleTimerStart, currentTimerCheck, currentTimer, setCurrentTimer, start } = useContext(TimersContext);
+    const [counter, setCounter] = useState(0);
+    const secondsCountInterval = useRef(0);
+    const totalSeconds = useRef(CalculateTotalSeconds(startMinutes, startSeconds));
+    
+    console.log(`index ${index}`);
+    console.log(`startSeconds ${startSeconds}`);
+
+    if (index === currentIndex){
+        isRunning = 'running';
+    }
+    else if (index < currentIndex){
+        isRunning = 'completed';
+    }
+    else {
+        isRunning = 'not running';
+    }
+
+    useEffect(() => {
+        if (index === currentIndex) {
+            
+            
+            console.log(`isRunning ${isRunning}`);
+            secondsCountInterval.current = setInterval(() => {
+            setCounter(prev => {
+              return prev + 1;
+            });
+          }, 1000);
+        }
+    
+        return () => {
+          clearInterval(secondsCountInterval.current);
+        };
+      }, [currentIndex]);
+    
+      useEffect(() => {
+        if (counter === totalSeconds.current) {
+          // I'm done!
+          console.log("done");
+          clearInterval(secondsCountInterval.current);
+          setCurrentIndex(c => c + 1);
+          isRunning = 'completed';
+        }
+      }, [counter]);
     
     // console.log(`current timer ${currentTimerCheck.current}`);
     // console.log(id);
@@ -194,8 +236,7 @@ const Stopwatch = ({id, startMinutes, startSeconds, isRunning }) =>  {
                 {isRunning === 'running' && <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/>}
                 {isRunning === 'not running' && <DisplayTime minutes="0" seconds="0"/>}
                 {isRunning === 'completed' && <DisplayTime minutes={startMinutes} seconds={startSeconds}/>}
-                
-                
+                            
                 
                 
                 {/* <DisplayTime minutes={startMinutes} seconds={startSeconds}/> */}

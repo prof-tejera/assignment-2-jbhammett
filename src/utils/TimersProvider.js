@@ -7,6 +7,7 @@ const TimersProvider = ({ children }) => {
     const [timers, setTimers] = useState([]);
     const [selectedTimer, setSelectedTimer] = useState(null);
     const [currentTimer, setCurrentTimer] = useState(timers[0]);
+    const [currentIndex, setCurrentIndex] = useState(null);
     
     const [counter, setCounter] = useState(0);
     const [restCounter, setRestCounter] = useState(0);
@@ -15,7 +16,7 @@ const TimersProvider = ({ children }) => {
   
     const totalSeconds = useRef(0);
     const totalRestSeconds = useRef(0);
-    const secondsCountInterval = useRef(0);
+    // const secondsCountInterval = useRef(0);
     const counterCheck = useRef(null);
     const roundsCheck = useRef(1);
     const currentTimerCheck = useRef(timers[0]);
@@ -46,6 +47,8 @@ const TimersProvider = ({ children }) => {
                 currentTimerCheck,
                 currentTimer,
                 setCurrentTimer,
+                currentIndex,
+                setCurrentIndex,
                 selectedTimer,
                 secondsOptions,
                 minutesOptions,
@@ -68,93 +71,94 @@ const TimersProvider = ({ children }) => {
 
 
 
-                handleTimerStart: (timer) => {
+                handleTimerStart: (timerIndex) => {
+                    setCurrentIndex(timerIndex);
                     // setStart(true);
                     
                     // setCurrentTimer(timers[0]);
-                    if (timers.indexOf(currentTimerCheck.current < timers.length)){
+                    // if (timers.indexOf(currentTimerCheck.current < timers.length)){
 
-                        let nextTimer = timers[timers.indexOf(timer) + 1];
-                        console.log(`timers.length ${timers.length}`);
+                    //     let nextTimer = timers[timers.indexOf(timer) + 1];
+                    //     console.log(`timers.length ${timers.length}`);
                         
-                        if (timers.indexOf(currentTimerCheck.current === 0)){
-                            setCurrentTimer(timer);
-                        }
-                        else {
-                            setCurrentTimer(nextTimer)
-                        }
+                    //     if (timers.indexOf(currentTimerCheck.current === 0)){
+                    //         setCurrentTimer(timer);
+                    //     }
+                    //     else {
+                    //         setCurrentTimer(nextTimer)
+                    //     }
                         
-                        console.log(`timer ${timer}`);
-                        currentTimerCheck.current = timer;
+                    //     console.log(`timer ${timer}`);
+                    //     currentTimerCheck.current = timer;
                         
-                        // console.log(`inital nextTimer ${nextTimer.selectedTimer}`);
+                    //     // console.log(`inital nextTimer ${nextTimer.selectedTimer}`);
                         
-                        console.log(`currentTimerCheck.current ${currentTimerCheck.current}`);
-                        if (currentTimerCheck.current === timer) {
-                            timer.isRunning = 'running';
-                        }
-                        else {
-                            timer.isRunning = 'not running';
-                        }
+                    //     console.log(`currentTimerCheck.current ${currentTimerCheck.current}`);
+                    //     if (currentTimerCheck.current === timer) {
+                    //         timer.isRunning = 'running';
+                    //     }
+                    //     else {
+                    //         timer.isRunning = 'not running';
+                    //     }
                         
-                        // let runningTimer = null;
-                        // if (currentTimerCheck.current === timers[0]){
-                        //     runningTimer = timers[0];
-                        // }
-                        // else {
-                        //     runningTimer = nextTimer;
-                        // }
-                        console.log(timer.startMinutes);
-                        console.log(`timer.startSeconds ${timer.startSeconds}`);
-                        let seconds = CalculateTotalSeconds(timer.startMinutes, timer.startSeconds);
-
-
-                        totalSeconds.current = seconds;
+                    //     // let runningTimer = null;
+                    //     // if (currentTimerCheck.current === timers[0]){
+                    //     //     runningTimer = timers[0];
+                    //     // }
+                    //     // else {
+                    //     //     runningTimer = nextTimer;
+                    //     // }
+                    //     console.log(timer.startMinutes);
+                    //     console.log(`timer.startSeconds ${timer.startSeconds}`);
+                    //     let seconds = CalculateTotalSeconds(timer.startMinutes, timer.startSeconds);
 
 
-                            // if (currentTimerCheck.current = runningTimer){
-                            if (timer.selectedTimer === 'Stopwatch') {
-                                console.log("stopwatch");
-                                if (totalSeconds.current > 0){
-                                    // Start timer
-                                        secondsCountInterval.current = setInterval(() => {
-                                            console.log(`timer ${timer.selectedTimer}`);
-                                            // console.log(`currentTimerCheck.current ${currentTimerCheck.current.selectedTimer}`)
-                                            setCounter((prevTotalSecondsCount) => {
+                    //     totalSeconds.current = seconds;
+
+
+                    //         // if (currentTimerCheck.current = runningTimer){
+                    //         if (timer.selectedTimer === 'Stopwatch') {
+                    //             console.log("stopwatch");
+                    //             if (totalSeconds.current > 0){
+                    //                 // Start timer
+                    //                     secondsCountInterval.current = setInterval(() => {
+                    //                         console.log(`timer ${timer.selectedTimer}`);
+                    //                         // console.log(`currentTimerCheck.current ${currentTimerCheck.current.selectedTimer}`)
+                    //                         setCounter((prevTotalSecondsCount) => {
                                         
-                                                const nextTotalSecondsCounter = prevTotalSecondsCount + 1;
+                    //                             const nextTotalSecondsCounter = prevTotalSecondsCount + 1;
                                             
-                                                // Stop timer when end time is reached
-                                                if (nextTotalSecondsCounter === totalSeconds.current) {
-                                                    clearInterval(secondsCountInterval.current);
+                    //                             // Stop timer when end time is reached
+                    //                             if (nextTotalSecondsCounter === totalSeconds.current) {
+                    //                                 clearInterval(secondsCountInterval.current);
                                         
-                                                    timer.isRunning = 'completed';
-                                                    if (timer.isRunning === 'completed' && timers.indexOf(timer) < timers.length){    
-                                                        console.log('completed');     
-                                                        console.log(timers[timers.indexOf(timer) + 1]);
+                    //                                 timer.isRunning = 'completed';
+                    //                                 if (timer.isRunning === 'completed' && timers.indexOf(timer) < timers.length){    
+                    //                                     console.log('completed');     
+                    //                                     console.log(timers[timers.indexOf(timer) + 1]);
                                                      
-                                                     setCurrentTimer(nextTimer);
-                                                    //  if(nextTimer){
-                                                    //     this.startNextTimer(nextTimer);
-                                                    //  }
+                    //                                  setCurrentTimer(nextTimer);
+                    //                                 //  if(nextTimer){
+                    //                                 //     this.startNextTimer(nextTimer);
+                    //                                 //  }
                                                      
                                                      
-                                                    //  console.log(`nextTimer ${nextTimer.selectedTimer}`);
-                                                     console.log(`index current timer ${timers.indexOf(timer)}`);
-                                                     console.log(`index next timer ${timers.indexOf(timer) + 1}`);
+                    //                                 //  console.log(`nextTimer ${nextTimer.selectedTimer}`);
+                    //                                  console.log(`index current timer ${timers.indexOf(timer)}`);
+                    //                                  console.log(`index next timer ${timers.indexOf(timer) + 1}`);
                                                      
 
-                                                     currentTimerCheck.current = timers[timers.indexOf(timer) + 1];   
-                                                    }
-                                                }                   
-                                                return nextTotalSecondsCounter;
+                    //                                  currentTimerCheck.current = timers[timers.indexOf(timer) + 1];   
+                    //                                 }
+                    //                             }                   
+                    //                             return nextTotalSecondsCounter;
                                                 
-                                            });
+                    //                         });
 
-                                        }, 1000);
+                    //                     }, 1000);
                                         
-                                    }
-                            }
+                    //                 }
+                    //         }
 
                             // else if (timer.selectedTimer === 'Countdown') {
                             //     setCounter(seconds);
@@ -350,12 +354,13 @@ const TimersProvider = ({ children }) => {
                         //     setStart(false);
                         // }
                     // } if currentTimer
-                    }
+                    // }
                 },
 
-                saveTimer: ({ id, selectedTimer, startMinutes, startSeconds, rounds, startRestMinutes, startRestSeconds, isRunning }) => {
+                saveTimer: ({ id, index, selectedTimer, startMinutes, startSeconds, rounds, startRestMinutes, startRestSeconds, isRunning }) => {
                     const updatedTimer = {
                         id,
+                        index,
                         selectedTimer,
                         startMinutes,
                         startSeconds, 
@@ -375,12 +380,14 @@ const TimersProvider = ({ children }) => {
                             {
                                 ...updatedTimer,
                                 id: makeId(),
+                                index: (timers.length === 0) ? 0 : timers.length,
                                 isRunning: 'not running',
                               
                             },
                         ])
                         
                     }
+                    console.log(`save index ${index}`);
                     closeEditor();
             
                 },

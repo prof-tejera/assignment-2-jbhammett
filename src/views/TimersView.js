@@ -34,18 +34,19 @@ const TimersView = () => {
   let totalTime = 0;
   const timersDisplay = []
   for (let i=0; i<timers.length; i++){
+    console.log(`i ${i}`);
     if (timers[i].selectedTimer === 'Stopwatch'){
       console.log(timers[i].startMinutes);
-      timersDisplay.push({title: "Stopwatch", id: timers[i].id, C: <Stopwatch id={timers[i].id} startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} isRunning={timers[i].isRunning} />})
+      timersDisplay.push({title: "Stopwatch", id: timers[i].id, C: <Stopwatch id={timers[i].id} index={i} startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} isRunning={timers[i].isRunning} />})
     }
     else if (timers[i].selectedTimer === 'Countdown'){
-      timersDisplay.push({title: "Countdown", id: timers[i].id, C: <Countdown id={timers[i].id}  startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} isRunning={timers[i].isRunning} />})
+      timersDisplay.push({title: "Countdown", id: timers[i].id, index: i, C: <Countdown id={timers[i].id} index={i} startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} isRunning={timers[i].isRunning} />})
     }
     else if (timers[i].selectedTimer === 'XY'){
-      timersDisplay.push({title: "XY", id: timers[i].id,  C: <XY id={timers[i].id}  startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} rounds={timers[i].rounds} isRunning={timers[i].isRunning} />})
+      timersDisplay.push({title: "XY", id: timers[i].id, index: i,  C: <XY id={timers[i].id} index={i} startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} rounds={timers[i].rounds} isRunning={timers[i].isRunning} />})
     }
     else if (timers[i].selectedTimer === 'Tabata'){
-      timersDisplay.push({title: "Tabata", id: timers[i].id, C: <Tabata id={timers[i].id}  startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} rounds={timers[i].rounds} startRestMinutes={timers[i].startRestMinutes} startRestSeconds={timers[i].startRestSeconds} isRunning={timers[i].isRunning} />})
+      timersDisplay.push({title: "Tabata", id: timers[i].id, index: i, C: <Tabata id={timers[i].id} index={i} startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} rounds={timers[i].rounds} startRestMinutes={timers[i].startRestMinutes} startRestSeconds={timers[i].startRestSeconds} isRunning={timers[i].isRunning} />})
     }
 
     const currentTimerTime = CalculateTotalSeconds(timers[i].startMinutes, timers[i].startSeconds);
@@ -63,7 +64,8 @@ const TimersView = () => {
       // if (timers[i].isRunning === 'completed'){
         
       
-      handleTimerStart(timers[0]); //This is what i usually use.
+      // handleTimerStart(timers[0]); //This is what i usually use.
+        handleTimerStart(0);
       // if (!value){
       //   setCurrentTimer(timers[0]);
       // }
@@ -113,7 +115,8 @@ const TimersView = () => {
 
       <Timers>
         {timersDisplay.map((timer) => (
-          <div key={timer.id}>
+          // <div key={timer.id}>
+          <div key={timer.index}>
             <Timer >
               <TimerTitle>{timer.title}</TimerTitle>
               {timer.C}

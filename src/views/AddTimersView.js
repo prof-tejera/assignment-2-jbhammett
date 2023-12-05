@@ -13,7 +13,7 @@ import { TimersContext } from "../utils/TimersProvider";
 
 
 const Editor = () => {
-    const { saveTimer, closeEditor, deleteTimer, secondsOptions, minutesOptions, roundsOptions } = useContext(TimersContext);
+    const { timers, saveTimer, closeEditor, deleteTimer, secondsOptions, minutesOptions, roundsOptions } = useContext(TimersContext);
     const [selectedTimer, setSelectedTimer ] = useState(null);
     const [startMinutes, setStartMinutes] = useState(selectedTimer?.startMinutes ?? '');
     const [startSeconds, setStartSeconds] = useState(selectedTimer?.startSeconds ?? '');
@@ -168,6 +168,7 @@ const Editor = () => {
                         onClick={() => {
                             saveTimer({
                                 id: selectedTimer?.id,
+                                index: (timers.length === 0) ? 0 : timers.length,
                                 selectedTimer,
                                 startMinutes,
                                 startSeconds,
