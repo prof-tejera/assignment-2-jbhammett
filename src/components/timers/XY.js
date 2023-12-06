@@ -1,26 +1,62 @@
 import React from "react";
-import { useContext } from 'react';
+import { useContext, useRef, useState, useEffect } from 'react';
 
 import DisplayTime from "../generic/DisplayTime";
 import DisplayRounds from "../generic/DisplayRounds";
 import Panel from "../generic/Panel";
-import { CalculateMinutesSeconds } from "../../utils/helpers";
+import { CalculateMinutesSeconds, CalculateTotalSeconds } from "../../utils/helpers";
 import { TimersContext } from "../../utils/TimersProvider";
 
-const XY = ({ id, startMinutes, startSeconds, rounds, isRunning }) => {
-    const { counter, currentTimerRounds } = useContext(TimersContext);
+const XY = ({ id, index, startMinutes, startSeconds, rounds, isRunning }) => {
+    const {  timers, currentIndex, setCurrentIndex, } = useContext(TimersContext);
     // const [displayRounds, setDisplayRounds] = useState(1);
 
+    const duration = CalculateTotalSeconds(startMinutes, startSeconds);
+    const [counter, setCounter] = useState(duration);
+    const secondsCountInterval = useRef(0);
+    const totalSeconds = useRef(duration);
+    const [roundsCounter, setRoundsCounter] = useState(1);
 
-    // const [startMinutes, setStartMinutes] = useState('00');
-    // const [startSeconds, setStartSeconds] = useState('00');
-    // const [rounds, setRounds] = useState(0);
-    // const [counter, setCounter] = useState(CalculateTotalSeconds(startMinutes, startSeconds));
+    if (index === currentIndex){
+        isRunning = 'running';
+    }
+    else if (index < currentIndex){
+        isRunning = 'completed';
+    }
+    else {
+        isRunning = 'not running';
+    }
 
-    // const totalSeconds = useRef(0);
-    // const secondsCountInterval = useRef(null);
+    useEffect(() => {
+        if (index === currentIndex) {
+            secondsCountInterval.current = setInterval(() => {
+            setCounter(prev => {
+              return prev - 1;
+            });
+          }, 1000);
+        }
+    
+        return () => {
+          clearInterval(secondsCountInterval.current);
+        };
+      }, [currentIndex]);
+    
+      useEffect(() => {
+        if (counter === 0 && roundsCounter < rounds){
+            setRoundsCounter( prev=> {
+                return prev + 1;
+            });
+            setCounter(duration);
+        }; 
 
-    // isRunning = useRef(isRunning);
+        if (counter === 0 && roundsCounter == rounds) {
+          // I'm done!
+          console.log("done");
+          clearInterval(secondsCountInterval.current);
+          setCurrentIndex(c => c + 1);
+          isRunning = 'completed';
+        }
+      }, [counter, rounds]);
 
 
 
@@ -147,7 +183,7 @@ const XY = ({ id, startMinutes, startSeconds, rounds, isRunning }) => {
                     
                     >{isRunning}</h5>
                 </div>
-                {isRunning === 'running' && <DisplayRounds round={currentTimerRounds} totalRounds={rounds} />}
+                {isRunning === 'running' && <DisplayRounds round={roundsCounter} totalRounds={rounds} />}
                 {(isRunning ==='not running' || isRunning ==='completed') && <DisplayRounds round="1" totalRounds={rounds} />}
                 
                 

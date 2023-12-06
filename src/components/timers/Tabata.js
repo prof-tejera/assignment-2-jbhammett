@@ -1,15 +1,79 @@
 import React from "react";
-import { useContext } from 'react';
+import { useContext, useRef, useState, useEffect } from 'react';
 
 import DisplayTime from "../generic/DisplayTime";
 import DisplayRounds from "../generic/DisplayRounds";
 import Panel from "../generic/Panel";
 import DisplayTitle from "../generic/DisplayTitle";
-import { CalculateMinutesSeconds } from "../../utils/helpers";
+import { CalculateMinutesSeconds, CalculateTotalSeconds } from "../../utils/helpers";
 import { TimersContext } from "../../utils/TimersProvider";
 
-const Tabata = ({ id, startMinutes, startSeconds, rounds, startRestMinutes, startRestSeconds, isRunning }) => {
-    const { counter, restCounter, currentTimerRounds } = useContext(TimersContext);
+const Tabata = ({ id, index, startMinutes, startSeconds, rounds, startRestMinutes, startRestSeconds, isRunning }) => {
+    
+    const {  timers, currentIndex, setCurrentIndex, } = useContext(TimersContext);
+
+    const workDuration = CalculateTotalSeconds(startMinutes, startSeconds);
+    const restDuration = CalculateTotalSeconds(startRestMinutes, startRestSeconds);
+    const [counter, setCounter] = useState(workDuration);
+    const [restCounter, setRestCounter] = useState(restDuration);
+    const secondsCountInterval = useRef(0);
+    const totalWorkSeconds = useRef(workDuration);
+    const [roundsCounter, setRoundsCounter] = useState(1);
+
+    if (index === currentIndex){
+        isRunning = 'running';
+    }
+    else if (index < currentIndex){
+        isRunning = 'completed';
+    }
+    else {
+        isRunning = 'not running';
+    }
+
+
+    useEffect(() => {
+        if (index === currentIndex) {
+            secondsCountInterval.current = setInterval(() => {
+                setCounter(prev => {
+                    return prev - 1;
+                });
+          }, 1000);
+        }
+    
+        return () => {
+          clearInterval(secondsCountInterval.current);
+        };
+      }, [currentIndex]);
+
+    useEffect(() => {
+        if (counter === 0){
+            setRestCounter(prev => {
+                return prev - 1;
+            });
+        }
+    },[]);
+    
+      useEffect(() => {
+        if (restCounter === 0 && roundsCounter < rounds){
+            setRoundsCounter( prev=> {
+                return prev + 1;
+            });
+            setCounter(workDuration);
+            setRestCounter(restDuration)
+        }; 
+
+        if (restCounter === 0 && roundsCounter == rounds) {
+          // I'm done!
+          console.log("done");
+          clearInterval(secondsCountInterval.current);
+          setCurrentIndex(c => c + 1);
+          isRunning = 'completed';
+        }
+      }, [counter, rounds]);
+
+
+
+
     //************ */ NEED COUNTER FOR REST ALSO!!!!!!!!!!!!!!!!!!!!!**************
     // const [displayRounds, setDisplayRounds] = useState(1);
     
@@ -198,13 +262,7 @@ const Tabata = ({ id, startMinutes, startSeconds, rounds, startRestMinutes, star
     return (
         <div>
             <Panel type="Tabata">
-                {/* <h6 style={{
-                    marginBottom:0,
-                // }}>Minutes : Seconds
-                </h6> */}
-            {/* <TimerInput options={minutesOptions} value={startMinutes} timeType="Minutes" onChange={handleMinutesInput}/>: */}
-            {/* <TimerInput options={secondsOptions} value={startSeconds} timeType="Seconds" onChange={handleSecondsInput}/> */}
-
+         
             <div>
                 <h5 style = {{
                     textTransform: 'capitalize',
@@ -212,22 +270,7 @@ const Tabata = ({ id, startMinutes, startSeconds, rounds, startRestMinutes, star
                 
                 >{isRunning}</h5>
             </div>
-
-            <div>
-                <span style={{
-                    fontSize: "1rem",
-                    marginRight: 5
-                }}>
-                    Rest
-                </span>
-                {/* <TimerInput options={minutesOptions} value={startRestMinutes} timeType="Minutes" onChange={handleRestMinutesInput}/>: */}
-                {/* <TimerInput options={secondsOptions} value={startRestSeconds} timeType="Seconds" onChange={handleRestSecondsInput}/> */}
-            </div>    
-
-            {/* <div>
-                <DisplayTitle title="Rounds" />
-                <TimerInput options={roundsOptions} value={rounds} onChange={handleRoundsInput}/>
-            </div> */}
+  
 
             <DisplayTitle title="Work" />
             {isRunning === 'not running' && <DisplayTime minutes={startMinutes} seconds={startSeconds}/>}
@@ -241,7 +284,7 @@ const Tabata = ({ id, startMinutes, startSeconds, rounds, startRestMinutes, star
 
 
             {isRunning === 'not running' && <DisplayRounds round="1" totalRounds={rounds} />}
-            {isRunning === 'running' && <DisplayRounds round={currentTimerRounds} totalRounds={rounds} />}
+            {isRunning === 'running' && <DisplayRounds round={roundsCounter} totalRounds={rounds} />}
             {isRunning === 'completed' && <DisplayRounds round={rounds} totalRounds={rounds} />}
             
 
