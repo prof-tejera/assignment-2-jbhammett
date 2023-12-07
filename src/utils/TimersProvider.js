@@ -24,7 +24,7 @@ const TimersProvider = ({ children }) => {
     }
 
     const roundsOptions = []
-    for (let j=0; j < 20; j++){
+    for (let j=1; j < 20; j++){
         roundsOptions.push(j);
     }
 
@@ -66,7 +66,6 @@ const TimersProvider = ({ children }) => {
                     setCurrentIndex(prev => {
                         return prev + 1;
                     });
-                    console.log('test');
                 },
 
 
@@ -111,7 +110,6 @@ const TimersProvider = ({ children }) => {
                         ])
                         
                     }
-                    console.log(`save index ${index}`);
                     closeEditor();
             
                 },

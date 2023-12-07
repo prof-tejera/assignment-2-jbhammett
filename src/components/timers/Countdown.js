@@ -9,12 +9,11 @@ import { CalculateMinutesSeconds, CalculateTotalSeconds, ResetTimer } from "../.
 
 
 const Countdown = ({ id, index, startMinutes, startSeconds, isRunning })=> {
-    const { timers, currentIndex, setCurrentIndex } = useContext(TimersContext);
+    const { currentIndex, setCurrentIndex } = useContext(TimersContext);
     
     const duration = CalculateTotalSeconds(startMinutes, startSeconds);
     const [counter, setCounter] = useState(duration);
     const secondsCountInterval = useRef(0);
-    const totalSeconds = useRef(duration);
 
     if (index === currentIndex){
         isRunning = 'running';
@@ -46,7 +45,6 @@ const Countdown = ({ id, index, startMinutes, startSeconds, isRunning })=> {
     
       useEffect(() => {
         if (counter === 0) {
-          console.log("done");
           clearInterval(secondsCountInterval.current);
           setCurrentIndex(c => c + 1);
           isRunning = 'completed'; 

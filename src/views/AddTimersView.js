@@ -4,16 +4,11 @@ import { useContext, useState } from 'react';
 import Button from "../components/generic/Button";
 import TimerInput from "../components/generic/TimerInput";
 
-
-
 import { TimersContext } from "../utils/TimersProvider";
-
-// import { CalculateTotalSeconds, setTimerCounterStart } from "../utils/helpers";
-
 
 
 const Editor = () => {
-    const { timers, saveTimer, closeEditor, deleteTimer, secondsOptions, minutesOptions, roundsOptions } = useContext(TimersContext);
+    const { timers, saveTimer, closeEditor, secondsOptions, minutesOptions, roundsOptions } = useContext(TimersContext);
     const [selectedTimer, setSelectedTimer ] = useState(null);
     const [startMinutes, setStartMinutes] = useState(selectedTimer?.startMinutes ?? '');
     const [startSeconds, setStartSeconds] = useState(selectedTimer?.startSeconds ?? '');
@@ -180,13 +175,11 @@ const Editor = () => {
 
 
 const AddTimersView = () => {
-    const { timers, openTimer, selectedTimer, setSelectedTimer, openEditor, deleteTimer, editorOpen } = useContext(TimersContext);
+    const { openEditor, editorOpen } = useContext(TimersContext);
   
 	return (
 
         <span>
-
-            {/* <button onClick={() => openEditor()}>+</button> */}
             <Button value="Add New Timer" color="#aaa0ff" onClick={() => openEditor()} />
 
             {editorOpen && <Editor />}

@@ -34,9 +34,7 @@ const TimersView = () => {
   let totalTime = 0;
   const timersDisplay = []
   for (let i=0; i<timers.length; i++){
-    console.log(`i ${i}`);
     if (timers[i].selectedTimer === 'Stopwatch'){
-      console.log(timers[i].startMinutes);
       timersDisplay.push({title: "Stopwatch", id: timers[i].id, C: <Stopwatch id={timers[i].id} index={i} startMinutes={timers[i].startMinutes} startSeconds={timers[i].startSeconds} isRunning={timers[i].isRunning} />})
     }
     else if (timers[i].selectedTimer === 'Countdown'){
@@ -64,11 +62,9 @@ const TimersView = () => {
       <Button value="Fast Forward" color='#aaa0ff' onClick={handleFastForward} />
       <h2>Total Workout Time </h2>
       <DisplayTime minutes={CalculateMinutesSeconds(totalTime)[0]} seconds={CalculateMinutesSeconds(totalTime)[1]} />
-      {/* <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/> */}
 
       <Timers>
         {timersDisplay.map((timer) => (
-          // <div key={timer.id}>
           <div key={timer.index}>
             <Timer >
               <TimerTitle>{timer.title}</TimerTitle>

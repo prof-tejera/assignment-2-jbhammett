@@ -8,13 +8,12 @@ import { CalculateMinutesSeconds, CalculateTotalSeconds, ResetTimer } from "../.
 import { TimersContext } from "../../utils/TimersProvider";
 
 const XY = ({ id, index, startMinutes, startSeconds, rounds, isRunning }) => {
-    const {  timers, currentIndex, setCurrentIndex, } = useContext(TimersContext);
+    const { currentIndex, setCurrentIndex } = useContext(TimersContext);
     // const [displayRounds, setDisplayRounds] = useState(1);
 
     const duration = CalculateTotalSeconds(startMinutes, startSeconds);
     const [counter, setCounter] = useState(duration);
     const secondsCountInterval = useRef(0);
-    const totalSeconds = useRef(duration);
     const [roundsCounter, setRoundsCounter] = useState(1);
 
     if (index === currentIndex){
@@ -55,8 +54,6 @@ const XY = ({ id, index, startMinutes, startSeconds, rounds, isRunning }) => {
         }; 
 
         if (counter === 0 && roundsCounter == rounds) {
-          // I'm done!
-          console.log("done");
           clearInterval(secondsCountInterval.current);
           setCurrentIndex(c => c + 1);
           isRunning = 'completed';

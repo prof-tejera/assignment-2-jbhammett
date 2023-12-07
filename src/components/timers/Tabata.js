@@ -10,7 +10,7 @@ import { TimersContext } from "../../utils/TimersProvider";
 
 const Tabata = ({ id, index, startMinutes, startSeconds, rounds, startRestMinutes, startRestSeconds, isRunning }) => {
     
-    const {  timers, currentIndex, setCurrentIndex, } = useContext(TimersContext);
+    const { currentIndex, setCurrentIndex, } = useContext(TimersContext);
 
     const workDuration = CalculateTotalSeconds(startMinutes, startSeconds);
     const restDuration = CalculateTotalSeconds(startRestMinutes, startRestSeconds);
@@ -38,8 +38,6 @@ const Tabata = ({ id, index, startMinutes, startSeconds, rounds, startRestMinute
     useEffect(() => {
         if (index === currentIndex) {
             secondsCountInterval.current = setInterval(() => {
-                console.log(`Tabata counter ${counter}`);
-                console.log(`Tabata rest counter ${restCounter}`);
                 if(counter > 0){
                     setCounter(prev => {
                         return prev - 1;
@@ -69,8 +67,6 @@ const Tabata = ({ id, index, startMinutes, startSeconds, rounds, startRestMinute
         }; 
 
         if (restCounter === 0 && roundsCounter == rounds) {
-          // I'm done!
-          console.log("done");
           clearInterval(secondsCountInterval.current);
           setCurrentIndex(c => c + 1);
           isRunning = 'completed';
