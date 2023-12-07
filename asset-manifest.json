@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/assignment-2-jbhammett/static/css/main.02971024.chunk.css",
+    "main.js": "/assignment-2-jbhammett/static/js/main.a1365617.chunk.js",
+    "main.js.map": "/assignment-2-jbhammett/static/js/main.a1365617.chunk.js.map",
+    "runtime-main.js": "/assignment-2-jbhammett/static/js/runtime-main.4ed2d7ce.js",
+    "runtime-main.js.map": "/assignment-2-jbhammett/static/js/runtime-main.4ed2d7ce.js.map",
+    "static/js/2.6a00b93b.chunk.js": "/assignment-2-jbhammett/static/js/2.6a00b93b.chunk.js",
+    "static/js/2.6a00b93b.chunk.js.map": "/assignment-2-jbhammett/static/js/2.6a00b93b.chunk.js.map",
+    "index.html": "/assignment-2-jbhammett/index.html",
+    "precache-manifest.142b853aa23a4d271ce958a1eeba4f0f.js": "/assignment-2-jbhammett/precache-manifest.142b853aa23a4d271ce958a1eeba4f0f.js",
+    "service-worker.js": "/assignment-2-jbhammett/service-worker.js",
+    "static/css/main.02971024.chunk.css.map": "/assignment-2-jbhammett/static/css/main.02971024.chunk.css.map",
+    "static/js/2.6a00b93b.chunk.js.LICENSE.txt": "/assignment-2-jbhammett/static/js/2.6a00b93b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4ed2d7ce.js",
+    "static/js/2.6a00b93b.chunk.js",
+    "static/css/main.02971024.chunk.css",
+    "static/js/main.a1365617.chunk.js"
+  ]
+}
