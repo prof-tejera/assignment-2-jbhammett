@@ -17,7 +17,7 @@ const Tabata = ({ id, index, startMinutes, startSeconds, rounds, startRestMinute
     const [counter, setCounter] = useState(workDuration);
     const [restCounter, setRestCounter] = useState(restDuration);
     const secondsCountInterval = useRef(0);
-    const totalWorkSeconds = useRef(workDuration);
+    // const totalWorkSeconds = useRef(workDuration);
     const [roundsCounter, setRoundsCounter] = useState(1);
 
     if (index === currentIndex){
@@ -30,29 +30,31 @@ const Tabata = ({ id, index, startMinutes, startSeconds, rounds, startRestMinute
         isRunning = 'not running';
     }
 
-
+// SORT OF WORKED
     useEffect(() => {
         if (index === currentIndex) {
             secondsCountInterval.current = setInterval(() => {
-                setCounter(prev => {
-                    return prev - 1;
-                });
+                console.log(`Tabata counter ${counter}`);
+                console.log(`Tabata rest counter ${restCounter}`);
+                if(counter > 0){
+                    setCounter(prev => {
+                        return prev - 1;
+                    });
+                }
+                else if (counter <= 0 && restCounter > 0){
+                    setRestCounter(prevRest => {
+                        return prevRest - 1;
+                    });
+                }
+            
           }, 1000);
         }
     
         return () => {
           clearInterval(secondsCountInterval.current);
         };
-      }, [currentIndex]);
+      }, [currentIndex, counter, restCounter]);
 
-    useEffect(() => {
-        if (counter === 0){
-            setRestCounter(prev => {
-                return prev - 1;
-            });
-        }
-    },[]);
-    
       useEffect(() => {
         if (restCounter === 0 && roundsCounter < rounds){
             setRoundsCounter( prev=> {
@@ -69,12 +71,9 @@ const Tabata = ({ id, index, startMinutes, startSeconds, rounds, startRestMinute
           setCurrentIndex(c => c + 1);
           isRunning = 'completed';
         }
-      }, [counter, rounds]);
+      }, [restCounter, roundsCounter]);
 
 
-
-
-    //************ */ NEED COUNTER FOR REST ALSO!!!!!!!!!!!!!!!!!!!!!**************
     // const [displayRounds, setDisplayRounds] = useState(1);
     
     // const [startMinutes, setStartMinutes] = useState('00');
