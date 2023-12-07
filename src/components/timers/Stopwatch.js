@@ -24,17 +24,9 @@ const Stopwatch = ({id, index, startMinutes, startSeconds, isRunning }) =>  {
         isRunning = 'not running';
     }
 
-   
-
     useEffect(() => {
-        // HandleStopButton(isRunning, secondsCountInterval, handleTimerStart);
         if (isRunning === 'not running') {
             ResetTimer(isRunning, secondsCountInterval, setCounter, 0);
-        }
-        if (isRunning === 'paused') {
-            console.log('paused');
-
-            clearInterval(secondsCountInterval.current);
         }
         
     }, [isRunning]);
