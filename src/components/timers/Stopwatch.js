@@ -28,8 +28,9 @@ const Stopwatch = ({id, index, startMinutes, startSeconds, isRunning }) =>  {
 
     useEffect(() => {
         // HandleStopButton(isRunning, secondsCountInterval, handleTimerStart);
-        ResetTimer(isRunning, secondsCountInterval, setCounter, 0);
-
+        if (isRunning === 'not running') {
+            ResetTimer(isRunning, secondsCountInterval, setCounter, 0);
+        }
         if (isRunning === 'paused') {
             console.log('paused');
 
@@ -50,15 +51,14 @@ const Stopwatch = ({id, index, startMinutes, startSeconds, isRunning }) =>  {
         return () => {
           clearInterval(secondsCountInterval.current);
         };
-      }, [currentIndex]);
+      }, [currentIndex, index]);
     
       useEffect(() => {
         if (counter === totalSeconds.current) {
           clearInterval(secondsCountInterval.current);
           setCurrentIndex(c => c + 1);
-          isRunning = 'completed';
         }
-      }, [counter]);
+      }, [counter, setCurrentIndex]);
 
 
 

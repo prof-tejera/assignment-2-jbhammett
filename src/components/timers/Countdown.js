@@ -27,7 +27,7 @@ const Countdown = ({ id, index, startMinutes, startSeconds, isRunning })=> {
 
     useEffect(() => {
         ResetTimer(isRunning, secondsCountInterval, setCounter, duration);
-    }, [isRunning]);
+    }, [isRunning, duration]);
 
     useEffect(() => {
         if (index === currentIndex) {
@@ -41,15 +41,14 @@ const Countdown = ({ id, index, startMinutes, startSeconds, isRunning })=> {
         return () => {
           clearInterval(secondsCountInterval.current);
         };
-      }, [currentIndex]);
+      }, [currentIndex, index]);
     
       useEffect(() => {
         if (counter === 0) {
           clearInterval(secondsCountInterval.current);
           setCurrentIndex(c => c + 1);
-          isRunning = 'completed'; 
         }
-      }, [counter]);
+      }, [counter, setCurrentIndex]);
 
 	return (
         <div>

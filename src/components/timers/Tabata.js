@@ -33,7 +33,7 @@ const Tabata = ({ id, index, startMinutes, startSeconds, rounds, startRestMinute
         ResetTimer(isRunning, secondsCountInterval, setCounter, workDuration);
         setRestCounter(restDuration);
         setRoundsCounter(1);
-    }, [isRunning]);
+    }, [isRunning, restDuration, workDuration]);
 
     useEffect(() => {
         if (index === currentIndex) {
@@ -55,7 +55,7 @@ const Tabata = ({ id, index, startMinutes, startSeconds, rounds, startRestMinute
         return () => {
           clearInterval(secondsCountInterval.current);
         };
-      }, [currentIndex, counter, restCounter]);
+      }, [currentIndex, counter, restCounter, index]);
 
       useEffect(() => {
         if (restCounter === 0 && roundsCounter < rounds){
@@ -63,15 +63,13 @@ const Tabata = ({ id, index, startMinutes, startSeconds, rounds, startRestMinute
                 return prev + 1;
             });
             setCounter(workDuration);
-            setRestCounter(restDuration)
+            setRestCounter(restDuration);
         }; 
-
-        if (restCounter === 0 && roundsCounter == rounds) {
+        if (restCounter === 0 && parseInt(roundsCounter) === parseInt(rounds)) {
           clearInterval(secondsCountInterval.current);
           setCurrentIndex(c => c + 1);
-          isRunning = 'completed';
         }
-      }, [restCounter, roundsCounter]);
+      }, [restCounter, roundsCounter, restDuration, rounds, setCurrentIndex, workDuration]);
 
     
     return (

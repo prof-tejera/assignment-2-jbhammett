@@ -9,7 +9,6 @@ import { TimersContext } from "../../utils/TimersProvider";
 
 const XY = ({ id, index, startMinutes, startSeconds, rounds, isRunning }) => {
     const { currentIndex, setCurrentIndex } = useContext(TimersContext);
-    // const [displayRounds, setDisplayRounds] = useState(1);
 
     const duration = CalculateTotalSeconds(startMinutes, startSeconds);
     const [counter, setCounter] = useState(duration);
@@ -29,7 +28,7 @@ const XY = ({ id, index, startMinutes, startSeconds, rounds, isRunning }) => {
     useEffect(() => {
         ResetTimer(isRunning, secondsCountInterval, setCounter, duration);
         setRoundsCounter(1);
-    }, [isRunning]);
+    }, [isRunning, duration]);
 
     useEffect(() => {
         if (index === currentIndex) {
@@ -43,7 +42,7 @@ const XY = ({ id, index, startMinutes, startSeconds, rounds, isRunning }) => {
         return () => {
           clearInterval(secondsCountInterval.current);
         };
-      }, [currentIndex]);
+      }, [currentIndex, index]);
     
       useEffect(() => {
         if (counter === 0 && roundsCounter < rounds){
@@ -53,12 +52,11 @@ const XY = ({ id, index, startMinutes, startSeconds, rounds, isRunning }) => {
             setCounter(duration);
         }; 
 
-        if (counter === 0 && roundsCounter == rounds) {
+        if (counter === 0 && parseInt(roundsCounter) === parseInt(rounds)) {
           clearInterval(secondsCountInterval.current);
           setCurrentIndex(c => c + 1);
-          isRunning = 'completed';
         }
-      }, [counter, rounds]);
+      }, [counter, rounds, index, duration, roundsCounter, setCurrentIndex]);
 
 
     return (
