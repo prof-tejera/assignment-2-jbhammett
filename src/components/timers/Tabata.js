@@ -5,7 +5,7 @@ import DisplayTime from "../generic/DisplayTime";
 import DisplayRounds from "../generic/DisplayRounds";
 import Panel from "../generic/Panel";
 import DisplayTitle from "../generic/DisplayTitle";
-import { CalculateMinutesSeconds, CalculateTotalSeconds } from "../../utils/helpers";
+import { CalculateMinutesSeconds, CalculateTotalSeconds, ResetTimer } from "../../utils/helpers";
 import { TimersContext } from "../../utils/TimersProvider";
 
 const Tabata = ({ id, index, startMinutes, startSeconds, rounds, startRestMinutes, startRestSeconds, isRunning }) => {
@@ -30,7 +30,12 @@ const Tabata = ({ id, index, startMinutes, startSeconds, rounds, startRestMinute
         isRunning = 'not running';
     }
 
-// SORT OF WORKED
+    useEffect(() => {
+        ResetTimer(isRunning, secondsCountInterval, setCounter, workDuration);
+        setRestCounter(restDuration);
+        setRoundsCounter(1);
+    }, [isRunning]);
+
     useEffect(() => {
         if (index === currentIndex) {
             secondsCountInterval.current = setInterval(() => {

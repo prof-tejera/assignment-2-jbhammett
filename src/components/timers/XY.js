@@ -4,7 +4,7 @@ import { useContext, useRef, useState, useEffect } from 'react';
 import DisplayTime from "../generic/DisplayTime";
 import DisplayRounds from "../generic/DisplayRounds";
 import Panel from "../generic/Panel";
-import { CalculateMinutesSeconds, CalculateTotalSeconds } from "../../utils/helpers";
+import { CalculateMinutesSeconds, CalculateTotalSeconds, ResetTimer } from "../../utils/helpers";
 import { TimersContext } from "../../utils/TimersProvider";
 
 const XY = ({ id, index, startMinutes, startSeconds, rounds, isRunning }) => {
@@ -26,6 +26,11 @@ const XY = ({ id, index, startMinutes, startSeconds, rounds, isRunning }) => {
     else {
         isRunning = 'not running';
     }
+
+    useEffect(() => {
+        ResetTimer(isRunning, secondsCountInterval, setCounter, duration);
+        setRoundsCounter(1);
+    }, [isRunning]);
 
     useEffect(() => {
         if (index === currentIndex) {

@@ -5,7 +5,7 @@ import DisplayTime from "../generic/DisplayTime";
 import Panel from "../generic/Panel";
 import { TimersContext } from "../../utils/TimersProvider";
 
-import { CalculateMinutesSeconds, CalculateTotalSeconds } from "../../utils/helpers";
+import { CalculateMinutesSeconds, CalculateTotalSeconds, ResetTimer } from "../../utils/helpers";
 
 /** *
  * Change counter to state variable. Will need to change all of these from .current
@@ -13,6 +13,7 @@ import { CalculateMinutesSeconds, CalculateTotalSeconds } from "../../utils/help
 */
 const Countdown = ({ id, index, startMinutes, startSeconds, isRunning })=> {
     const { timers, currentIndex, setCurrentIndex } = useContext(TimersContext);
+    
     const duration = CalculateTotalSeconds(startMinutes, startSeconds);
     const [counter, setCounter] = useState(duration);
     const secondsCountInterval = useRef(0);
@@ -27,6 +28,10 @@ const Countdown = ({ id, index, startMinutes, startSeconds, isRunning })=> {
     else {
         isRunning = 'not running';
     }
+
+    useEffect(() => {
+        ResetTimer(isRunning, secondsCountInterval, setCounter, duration);
+    }, [isRunning]);
 
     useEffect(() => {
         if (index === currentIndex) {
@@ -48,7 +53,7 @@ const Countdown = ({ id, index, startMinutes, startSeconds, isRunning })=> {
           console.log("done");
           clearInterval(secondsCountInterval.current);
           setCurrentIndex(c => c + 1);
-          isRunning = 'completed';
+          isRunning = 'completed'; //don't need this here. 
         }
       }, [counter]);
     // const [startMinutes, setStartMinutes] = useState('00');

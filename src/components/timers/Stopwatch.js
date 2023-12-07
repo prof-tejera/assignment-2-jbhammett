@@ -3,7 +3,7 @@ import {  useContext, useRef, useState, useEffect } from 'react';
 
 import DisplayTime from "../generic/DisplayTime";
 import Panel from "../generic/Panel";
-import { CalculateMinutesSeconds, CalculateTotalSeconds } from "../../utils/helpers";
+import { CalculateMinutesSeconds, CalculateTotalSeconds, ResetTimer } from "../../utils/helpers";
 import { TimersContext } from "../../utils/TimersProvider";
 
 
@@ -27,6 +27,19 @@ const Stopwatch = ({id, index, startMinutes, startSeconds, isRunning }) =>  {
     else {
         isRunning = 'not running';
     }
+
+    useEffect(() => {
+        // if (isRunning === 'not running'){
+        //     clearInterval(secondsCountInterval.current);
+        //     setCounter(0);
+          
+        //     if (secondsCountInterval.current) {
+        //         clearInterval(secondsCountInterval.current);
+        //         secondsCountInterval.current = null;
+        //     }
+        // }
+        ResetTimer(isRunning, secondsCountInterval, setCounter, 0);
+    }, [isRunning]);
 
     useEffect(() => {
         if (index === currentIndex) {
@@ -213,15 +226,6 @@ const Stopwatch = ({id, index, startMinutes, startSeconds, isRunning }) =>  {
         <div>
             <Panel type="Stopwatch">
       
-                {/* <h6 style={{
-                    marginBottom:0,
-                }}>Minutes : Seconds
-                </h6> */}
-                {/* <TimerInput options={minutesOptions} value={startMinutes} timeType="Minutes" onChange={handleMinutesInput}/>: */}
-                {/* <TimerInput options={secondsOptions} value={startSeconds} timeType="Seconds" onChange={handleSecondsInput}/> */}
-
-                {/* ORIGINALLY WORKED */}
-                {/* <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/> */}
                 <div>
                     <h5 style = {{
                         textTransform: 'capitalize',

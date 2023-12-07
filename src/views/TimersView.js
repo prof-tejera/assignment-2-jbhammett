@@ -30,7 +30,7 @@ const Timer = styled.div`
 const TimerTitle = styled.div``;
 
 const TimersView = () => {
-  const { timers, deleteTimer, handleTimerStart, counter, setCounter, currentTimer, setCurrentTimer, currentTimerCheck } = useContext(TimersContext);
+  const { timers, deleteTimer, handleTimerStart, handleWorkoutReset, counter, setCounter, currentTimer, setCurrentTimer, currentTimerCheck } = useContext(TimersContext);
   let totalTime = 0;
   const timersDisplay = []
   for (let i=0; i<timers.length; i++){
@@ -54,6 +54,7 @@ const TimersView = () => {
 
   }
 
+  
  
 
   const handleStartWorkoutButton = (value) => {
@@ -109,6 +110,7 @@ const TimersView = () => {
 
     <div>
       <Button value="Start Workout" color='#aaa0ff' onClick={handleStartWorkoutButton} />
+      <Button value="Reset" color='#aaa0ff' onClick={handleWorkoutReset} />
       <h2>Total Workout Time </h2>
       <DisplayTime minutes={CalculateMinutesSeconds(totalTime)[0]} seconds={CalculateMinutesSeconds(totalTime)[1]} />
       {/* <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/> */}
@@ -124,15 +126,8 @@ const TimersView = () => {
             <Button value="Delete Timer" onClick={() => {
                     deleteTimer({ id: timer.id });
                   }} />
-                  {timers.id}
-                  {/* <button
-                  onClick={() => {
-                    deleteTimer({ id: timer.id });
-                  }}
-                  // className="danger"
-                >
-                  Delete
-                </button> */}
+                 
+                  
           </div>
         ))}
       </Timers>
