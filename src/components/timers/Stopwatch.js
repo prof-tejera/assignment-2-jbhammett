@@ -33,7 +33,7 @@ const Stopwatch = ({id, index, startMinutes, startSeconds, isRunning }) =>  {
         if (isRunning === 'paused') {
             console.log('paused');
 
-            clearInterval(secondsCountInterval);
+            clearInterval(secondsCountInterval.current);
         }
         
     }, [isRunning]);
