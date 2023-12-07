@@ -25,13 +25,15 @@ export const CalculateMinutesSeconds = totalSeconds => {
 
 
 
-export const HandleStopButton = ((interval, start) => {
-    if (interval.current) {
-        clearInterval(interval.current);
-        interval.current = null;
-    }
-    else {
-        start();
+export const HandleStopButton = ((prop, interval, start) => {
+    if (prop === 'paused'){
+        if (interval.current) {
+            clearInterval(interval.current);
+            interval.current = null;
+        }
+        else {
+            start();
+        }
     }
 
 });
@@ -60,10 +62,10 @@ export const ResetTimer = ((prop, interval, setCounter, value) => {
         clearInterval(interval.current);
         setCounter(value);
       
-        if (interval.current) {
-            clearInterval(interval.current);
-            interval.current = null;
-        }
+    }
+
+    else if (prop === 'paused'){
+        clearInterval(interval.current);
     }
 });
 

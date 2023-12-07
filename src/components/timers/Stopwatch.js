@@ -3,13 +3,13 @@ import {  useContext, useRef, useState, useEffect } from 'react';
 
 import DisplayTime from "../generic/DisplayTime";
 import Panel from "../generic/Panel";
-import { CalculateMinutesSeconds, CalculateTotalSeconds, ResetTimer } from "../../utils/helpers";
+import { CalculateMinutesSeconds, CalculateTotalSeconds, ResetTimer, HandleStopButton } from "../../utils/helpers";
 import { TimersContext } from "../../utils/TimersProvider";
 
 
 const Stopwatch = ({id, index, startMinutes, startSeconds, isRunning }) =>  {
     // with counter const { timers, counter, handleTimerStart, currentTimerCheck, currentTimer, setCurrentTimer } = useContext(TimersContext);
-    const { timers, currentIndex, setCurrentIndex, handleTimerStart, currentTimerCheck, currentTimer, setCurrentTimer } = useContext(TimersContext);
+    const { timers, currentIndex, setCurrentIndex, handleTimerStart, handlePauseResume, currentTimerCheck, currentTimer, setCurrentTimer } = useContext(TimersContext);
     // first attempt without counter const { timers, handleTimerStart, currentTimerCheck, currentTimer, setCurrentTimer, start } = useContext(TimersContext);
     const [counter, setCounter] = useState(0);
     const secondsCountInterval = useRef(0);
@@ -28,18 +28,18 @@ const Stopwatch = ({id, index, startMinutes, startSeconds, isRunning }) =>  {
         isRunning = 'not running';
     }
 
-    useEffect(() => {
-        // if (isRunning === 'not running'){
-        //     clearInterval(secondsCountInterval.current);
-        //     setCounter(0);
-          
-        //     if (secondsCountInterval.current) {
-        //         clearInterval(secondsCountInterval.current);
-        //         secondsCountInterval.current = null;
-        //     }
-        // }
-        ResetTimer(isRunning, secondsCountInterval, setCounter, 0);
-    }, [isRunning]);
+   
+
+    // useEffect(() => {
+    //     // HandleStopButton(isRunning, secondsCountInterval, handleTimerStart);
+    //     ResetTimer(isRunning, secondsCountInterval, setCounter, 0);
+
+    //     // if (isRunning === 'paused') {
+    //         // console.log('paused');
+
+    //     // }
+        
+    // }, [isRunning]);
 
     useEffect(() => {
         if (index === currentIndex) {

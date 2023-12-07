@@ -30,7 +30,7 @@ const Timer = styled.div`
 const TimerTitle = styled.div``;
 
 const TimersView = () => {
-  const { timers, deleteTimer, handleTimerStart, handleWorkoutReset, counter, setCounter, currentTimer, setCurrentTimer, currentTimerCheck } = useContext(TimersContext);
+  const { timers, deleteTimer, handleTimerStart, handleWorkoutReset, handlePauseResume, handleFastForward} = useContext(TimersContext);
   let totalTime = 0;
   const timersDisplay = []
   for (let i=0; i<timers.length; i++){
@@ -54,63 +54,14 @@ const TimersView = () => {
 
   }
 
-  
- 
-
-  const handleStartWorkoutButton = (value) => {
-    
-    // for (let i=0; i<timers.length; i++) {
-      // timers[i].isRunning = true;
-      // setCurrentTimer(timers[i]);
-      // if (timers[i].isRunning === 'completed'){
-        
-      
-      // handleTimerStart(timers[0]); //This is what i usually use.
-        handleTimerStart(0);
-      // if (!value){
-      //   setCurrentTimer(timers[0]);
-      // }
-      // else {
-      //   setCurrentTimer(value);
-      // }
-      // if (currentTimerCheck.current.isRunning === 'completed')
-      // }  
-      
-      
-     
-
-    // }
-
-    // let seconds = CalculateTotalSeconds(startMinutes, startSeconds);
-
-    // totalSeconds.current = seconds;
-    
-    // if (totalSeconds.current > 0){
-    // // Start timer
-    //     secondsCountInterval.current = setInterval(() => {
-    //             setCounter((prevTotalSecondsCount) => {
-    //             const nextTotalSecondsCounter = prevTotalSecondsCount + 1;
-            
-    //             // Stop timer when end time is reached
-    //             if (nextTotalSecondsCounter === totalSeconds.current) {
-    //                 clearInterval(secondsCountInterval.current);
-           
-    //                 isRunning.current = false;
-    //             }                   
-    //             return nextTotalSecondsCounter;
-    //         });
-            
-    //     }, 1000);
-        
-  //   }
-  };
-
 
   return (
 
     <div>
-      <Button value="Start Workout" color='#aaa0ff' onClick={handleStartWorkoutButton} />
+      <Button value="Start Workout" color='#aaa0ff' onClick={handleTimerStart} />
       <Button value="Reset" color='#aaa0ff' onClick={handleWorkoutReset} />
+      <Button value="Pause/Resume" color='#aaa0ff' onClick={handlePauseResume} />
+      <Button value="Fast Forward" color='#aaa0ff' onClick={handleFastForward} />
       <h2>Total Workout Time </h2>
       <DisplayTime minutes={CalculateMinutesSeconds(totalTime)[0]} seconds={CalculateMinutesSeconds(totalTime)[1]} />
       {/* <DisplayTime minutes={CalculateMinutesSeconds(counter)[0]} seconds={CalculateMinutesSeconds(counter)[1]}/> */}
