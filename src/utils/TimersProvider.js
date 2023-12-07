@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { makeId, CalculateTotalSeconds } from "../utils/helpers";
+import { makeId } from "../utils/helpers";
 
 export const TimersContext = React.createContext({});
 
@@ -8,9 +8,6 @@ const TimersProvider = ({ children }) => {
     const [selectedTimer, setSelectedTimer] = useState(null);
     const [currentTimer, setCurrentTimer] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(null);
-
-
-    const [currentTimerRounds, setCurrentTimerRounds] = useState(1);
   
     const totalSeconds = useRef(0);
 
@@ -45,7 +42,6 @@ const TimersProvider = ({ children }) => {
                 minutesOptions,
                 roundsOptions,
                 totalSeconds,
-                currentTimerRounds,
                 
                 closeEditor,
                 deleteTimer: ({ id }) => setTimers(timers.filter(x => x.id !== id)),

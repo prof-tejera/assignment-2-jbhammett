@@ -20,47 +20,28 @@ const Editor = () => {
     const [rounds, setRounds] = useState(selectedTimer?.rounds ?? '');
     const [startRestMinutes, setStartRestMinutes] = useState(selectedTimer?.restMinutes ?? '');
     const [startRestSeconds, setStartRestSeconds] = useState(selectedTimer?.restSeconds ?? '');
-
-    // const selectedTimerMinutes = useRef();
-    // const selectedTimerSeconds = useRef();
-    // const selectedTimerRestMinutes = useRef();
-    // const selectedTimerRestSeconds = useRef();
-    // const selectedTimerRounds = useRef();
-
     
     const handleAddTimerInput = (value) => {
         setSelectedTimer(value);
     };
 
     const handleSelectedTimerMinutes = (value) => {
-        // selectedTimerMinutes.current = value;
-        // console.log('test)');
-        // console.log(`value ${value}`);
-        // if (value){
             setStartMinutes(value);
-        // }
-        // else {
-        //     setStartMinutes(0);
-        // }
     }
     
     const handleSelectedTimerSeconds = (value) => {
-        // selectedTimerSeconds.current = value;
         setStartSeconds(value);
     }
 
     const handleSelectedTimerRestMinutes = (value) => {
-        // selectedTimerRestMinutes.current = value;
         setStartRestMinutes(value);
     }
 
     const handleSelectedTimerRestSeconds = (value) => {
-        // selectedTimerRestSeconds.current = value;
         setStartRestSeconds(value);
     }
 
     const handleSelectedTimerRounds = (value) => {
-        // selectedTimerRounds.current = value;
         setRounds(value);
     }
 
