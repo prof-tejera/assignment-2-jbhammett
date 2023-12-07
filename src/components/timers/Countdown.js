@@ -31,7 +31,7 @@ const Countdown = ({ id, index, startMinutes, startSeconds, isRunning })=> {
         }
 
         
-    }, [isRunning]);
+    }, [isRunning, duration]);
 
     useEffect(() => {
         ResetTimer(isRunning, secondsCountInterval, setCounter, duration);
