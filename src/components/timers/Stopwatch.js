@@ -30,10 +30,11 @@ const Stopwatch = ({id, index, startMinutes, startSeconds, isRunning }) =>  {
         // HandleStopButton(isRunning, secondsCountInterval, handleTimerStart);
         ResetTimer(isRunning, secondsCountInterval, setCounter, 0);
 
-        // if (isRunning === 'paused') {
-            // console.log('paused');
+        if (isRunning === 'paused') {
+            console.log('paused');
 
-        // }
+            clearInterval(secondsCountInterval);
+        }
         
     }, [isRunning]);
 
