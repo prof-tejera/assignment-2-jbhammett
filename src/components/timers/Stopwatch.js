@@ -70,30 +70,7 @@ const Stopwatch = ({id, index, startMinutes, startSeconds, isRunning }) =>  {
                 {isRunning === 'not running' && <DisplayTime minutes="0" seconds="0"/>}
                 {isRunning === 'completed' && <DisplayTime minutes={startMinutes} seconds={startSeconds}/>}
                             
-                
-                
-                {/* <DisplayTime minutes={startMinutes} seconds={startSeconds}/> */}
             
-
-                {/* {!isRunning.current && (startMinutes !== '00' || startSeconds !== '00') && (counter === 0) && 
-                    <Button value={"Start"} color='#aaa0ff' onClick={handleStartButton} /> 
-                } */}
-
-
-                {/* PAUSE/RESUME BUTTON */}
-                {/* {isRunning.current && (startMinutes !== CalculateMinutesSeconds(counter)[0] || startSeconds !== CalculateMinutesSeconds(counter.current[1])) &&  
-                    <Button value={"Pause/Resume"} color='#aaa0ff' onClick={HandleStopButton} interval={secondsCountInterval} start={handleStartButton} /> 
-                }   */}
-
-
-{/* 
-                {
-                    (startMinutes !== '00' || startSeconds !== '00') &&
-                    <Button value={"Reset"} color='#aaa0ff' onClick={handleResetButton} /> 
-                }
-                {isRunning.current && (startMinutes !== CalculateMinutesSeconds(counter)[0] || startSeconds !== CalculateMinutesSeconds(counter.current)[1]) &&
-                    <Button value={"End"} color='#aaa0ff' onClick={handleEndButton} />
-                }     */}
             </Panel>
         </div>
 
